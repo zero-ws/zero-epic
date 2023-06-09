@@ -7,6 +7,7 @@ import io.macrocosm.specification.program.HArk;
 import io.macrocosm.specification.secure.HoI;
 import io.vertx.core.Future;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -50,6 +51,7 @@ class KPivotKit {
                 source.apply(found);
             }
         });
-        return sources;
+        // 3. 构造线程安全的集合
+        return Collections.synchronizedSet(sources);
     }
 }

@@ -64,7 +64,11 @@ public class KAmbient implements HAmbient {
         return this.context.app();
     }
 
-
+    /**
+     * 此方法实现采取同步，主要原因是注册过程中很容易会出现多个模块同时注册的情况，在这种模式下使用同步不会出现线程安全问题，
+     * 但是会出现阻塞的情况，因此在注册过程中不要执行过多的操作，仅仅是注册即可，而内部采用了 {@link ConcurrentMap} 的模式
+     * 保证了注册的线程安全性。
+     */
     @Override
     public synchronized HAmbient registry(final String extension, final JsonObject configuration) {
         this.configuration.put(extension, configuration);

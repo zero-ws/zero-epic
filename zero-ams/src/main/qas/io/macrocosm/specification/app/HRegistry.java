@@ -54,7 +54,7 @@ import java.util.Set;
  *        - 基本环境使用 zero-ambient 中的 SPI 注册器
  *        - 云环境使用新的 SPI 注册器
  *     2. 注册之后的内容依赖 {@link HAmbient} 实现请求级别的连接，提取的每个 {@link HArk}
- *        中都包含了 {@link KOI} 部分，此部分依赖内置 {@see HAmbientContext}
+ *        中都包含了 {@link io.macrocosm.specification.secure.HoI} 部分，此部分依赖内置 {@see HAmbientContext}
  *        上下文环境处理
  *     3. 对接模式搜寻路径
  *        3.1. 名称转换
@@ -99,17 +99,62 @@ public interface HRegistry<T> {
     }
 
     /**
-     * 注册器子接口，模块注册器，针对 boot: 启动流程中的 extension 部分注册
-     * 静态模块
+     * 注册器子接口，模块注册器，针对 boot: 启动流程中的 extension 部分注册静态模块
+     * <pre><code>
+     *     静态模块注册主要分成两类
+     *     1）模块级注册，直接开启当前容器环境中的所有扩展模块核心功能，所有当前容器环境中运行的应用都会开启静态配置模块
+     *        - 简单说一个 {@link Set<HArk>} 中所有的应用配置容器都会启用静态扩展模块
+     *     2）应用级注册，不用应用会包含不同的应用级注册模块，这些模块只会在当前应用中开启，去掉原始配置中的 compile 节点
+     *        而将 compile 阶段转换成 config 配置数据节点，针对不同的组件进行扩展配置以实现分离初始化
+     * </code></pre>
      */
     interface Mod<T> {
-
-        default Boolean registry(final T container, final HArk ark) {
+        /**
+         * 静态模块注册
+         *
+         * @param container 容器对象
+         * @param ambient   环境对象
+         *
+         * @return {@link Boolean}
+         */
+        default Boolean configure(final T container, final HAmbient ambient) {
             return Boolean.TRUE;
         }
 
-        default Future<Boolean> registryAsync(final T container, final HArk ark) {
-            return Future.succeededFuture(this.registry(container, ark));
+        /**
+         * 异步静态模块注册
+         *
+         * @param container 容器对象
+         * @param ambient   环境对象
+         *
+         * @return {@link Future}
+         */
+        default Future<Boolean> configureAsync(final T container, final HAmbient ambient) {
+            return Future.succeededFuture(this.configure(container, ambient));
+        }
+
+        /**
+         * （每个模块独立）初始化模块
+         *
+         * @param container 容器对象
+         * @param ark       应用配置容器对象
+         *
+         * @return {@link Boolean}
+         */
+        default Boolean initialize(final T container, final HArk ark) {
+            return Boolean.TRUE;
+        }
+
+        /**
+         * 异步（每个模块独立）初始化模块
+         *
+         * @param container 容器对象
+         * @param ark       应用配置容器对象
+         *
+         * @return {@link Future}
+         */
+        default Future<Boolean> initializeAsync(final T container, final HArk ark) {
+            return Future.succeededFuture(this.initialize(container, ark));
         }
     }
 }

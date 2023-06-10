@@ -11,6 +11,7 @@ public final class EmBoot {
      * @author lang : 2023-05-30
      */
     public enum LifeCycle {
+        PRE,    // pre 组件，比较特殊的组件
         ON,     // install, resolved, start
         OFF,    // stop, uninstall
         RUN;    // run, update, refresh

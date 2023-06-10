@@ -53,7 +53,7 @@ import java.util.function.Consumer;
  *
  * @author lang
  */
-public interface HLauncher<WebServer> {
+public interface HLauncher<WebContainer> {
     /**
      * 启动服务器，由于此处在实现层会处理内置的配置模型，之所以使用 void 的返回值主要是
      * 考虑到启动过程中可能存在异步调用所以 void 可以保证通过 callback 的写法处理所有
@@ -62,7 +62,7 @@ public interface HLauncher<WebServer> {
      * @param on     服务器配置消费（容器启动之前）
      * @param server 服务器消费器（容器启动之后）
      */
-    <WebConfig extends HConfig> void start(HOn<WebConfig> on, Consumer<WebServer> server);
+    <WebConfig extends HConfig> void start(HOn<WebConfig> on, Consumer<WebContainer> server);
 
     /**
      * 停止服务器，由于此处在实现层会处理内置的配置模型，所以使用回调模式 Consumer 来完
@@ -71,7 +71,7 @@ public interface HLauncher<WebServer> {
      * @param off    服务器配置消费（容器停止之前）
      * @param server 服务器消费器（容器停止之后）
      */
-    <WebConfig extends HConfig> void stop(HOff<WebConfig> off, Consumer<WebServer> server);
+    <WebConfig extends HConfig> void stop(HOff<WebConfig> off, Consumer<WebContainer> server);
 
     /**
      * 重启服务器
@@ -79,7 +79,7 @@ public interface HLauncher<WebServer> {
      * @param run    服务器重启准备
      * @param server 服务器引用
      */
-    default <WebConfig extends HConfig> void restart(final HRun<WebConfig> run, final Consumer<WebServer> server) {
+    default <WebConfig extends HConfig> void restart(final HRun<WebConfig> run, final Consumer<WebContainer> server) {
         throw new _501NotImplementException(this.getClass());
     }
 
@@ -89,7 +89,7 @@ public interface HLauncher<WebServer> {
      * @param run    服务器刷新准备
      * @param server 服务器引用
      */
-    default <WebConfig extends HConfig> void refresh(final HRun<WebConfig> run, final Consumer<WebServer> server) {
+    default <WebConfig extends HConfig> void refresh(final HRun<WebConfig> run, final Consumer<WebContainer> server) {
         throw new _501NotImplementException(this.getClass());
     }
 
@@ -98,7 +98,7 @@ public interface HLauncher<WebServer> {
      *
      * @return 服务器存储
      */
-    default ConcurrentMap<String, WebServer> store() {
+    default ConcurrentMap<String, WebContainer> store() {
         return new ConcurrentHashMap<>();
     }
 }

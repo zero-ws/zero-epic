@@ -13,6 +13,7 @@ import io.vertx.core.json.JsonObject;
 public class KConfig implements HConfig {
 
     private final JsonObject options = new JsonObject();
+    private Class<?> preCls;
 
     @Override
     public JsonObject options() {
@@ -22,6 +23,17 @@ public class KConfig implements HConfig {
     @Override
     public HConfig options(final JsonObject options) {
         this.options.mergeIn(HUt.valueJObject(options));
+        return this;
+    }
+
+    @Override
+    public Class<?> pre() {
+        return this.preCls;
+    }
+
+    @Override
+    public HConfig pre(final Class<?> preCls) {
+        this.preCls = preCls;
         return this;
     }
 }

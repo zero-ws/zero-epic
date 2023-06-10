@@ -28,4 +28,12 @@ public interface HConfig {
     default HConfig options(final JsonObject options) {
         return this;
     }
+
+    default Class<?> pre() {
+        return null;
+    }
+
+    default HConfig pre(final Class<?> preCls) {
+        return this;
+    }
 }

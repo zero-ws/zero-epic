@@ -49,6 +49,7 @@ public class KEnergy implements HEnergy {
         final JsonObject component = HUt.valueJObject(config, VSpec.Boot.COMPONENT);
         final JsonObject configJ = HUt.valueJObject(config, VSpec.Boot.CONFIG);
         /*
+         * - pre, 针对 on / off / run 的特殊配置
          * - on
          * - off
          * - run

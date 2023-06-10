@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * @author lang : 2023-06-07
  */
-class KPivotKit {
+class KPivotT {
     static void fail(final Class<?> clazz,
                      final HAmbient ambient) {
         final ConcurrentMap<String, HArk> stored = ambient.app();

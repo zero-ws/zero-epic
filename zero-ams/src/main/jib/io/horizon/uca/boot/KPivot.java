@@ -69,13 +69,13 @@ public class KPivot<T> {
 
     public Set<HArk> registry(final HConfig config) {
         // 前置检查（注册拦截）
-        KPivotKit.fail(getClass(), RUNNING);
+        KPivotT.fail(getClass(), RUNNING);
 
         Set<HArk> contextDefault = this.context.registry(this.container, config);
         final Set<HArk> contextCombine = new HashSet<>();
         if (Objects.nonNull(this.extension)) {
             final Set<HArk> contextExtension = this.extension.registry(this.container, config);
-            contextCombine.addAll(KPivotKit.combine(contextDefault, contextExtension));
+            contextCombine.addAll(KPivotT.combine(contextDefault, contextExtension));
         }
         contextCombine.forEach(RUNNING::registry);
         return contextCombine;
@@ -83,7 +83,7 @@ public class KPivot<T> {
 
     public Future<Set<HArk>> registryAsync(final HConfig config) {
         // 前置检查（异步注册拦截）
-        return KPivotKit.failAsync(getClass(), RUNNING).compose(nil ->
+        return KPivotT.failAsync(getClass(), RUNNING).compose(nil ->
             HFn.<Set<HArk>, Set<HArk>, Set<HArk>>combineT(
                 // 第一个异步结果
                 () -> this.context.registryAsync(this.container, config),
@@ -96,7 +96,7 @@ public class KPivot<T> {
 
     // ------------------------ 私有部分 -----------------------
     private Future<Set<HArk>> registryOut(final Set<HArk> source, final Set<HArk> extension) {
-        final Set<HArk> combine = KPivotKit.combine(source, extension);
+        final Set<HArk> combine = KPivotT.combine(source, extension);
         combine.forEach(RUNNING::registry);
         return Future.succeededFuture(combine);
     }

@@ -1,7 +1,7 @@
 package io.modello.specification.atom;
 
 import io.modello.atom.normalize.KMarkAttribute;
-import io.modello.atom.normalize.RRule;
+import io.modello.atom.reference.RRule;
 import io.modello.eon.em.EmValue;
 import io.modello.specification.meta.HMetaField;
 

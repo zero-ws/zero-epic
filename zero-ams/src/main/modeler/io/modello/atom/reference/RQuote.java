@@ -1,4 +1,4 @@
-package io.modello.atom.normalize;
+package io.modello.atom.reference;
 
 import io.horizon.util.HUt;
 import io.modello.specification.atom.HAttribute;

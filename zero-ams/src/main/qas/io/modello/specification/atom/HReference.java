@@ -1,9 +1,9 @@
 package io.modello.specification.atom;
 
-import io.modello.atom.normalize.RQuery;
-import io.modello.atom.normalize.RQuote;
-import io.modello.atom.normalize.RReference;
-import io.modello.atom.normalize.RResult;
+import io.modello.atom.reference.RQuery;
+import io.modello.atom.reference.RQuote;
+import io.modello.atom.reference.RReference;
+import io.modello.atom.reference.RResult;
 
 import java.util.concurrent.ConcurrentMap;
 

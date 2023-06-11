@@ -1,4 +1,4 @@
-package io.modello.atom.normalize;
+package io.modello.atom.reference;
 
 import io.horizon.atom.common.Kv;
 import io.horizon.eon.VString;

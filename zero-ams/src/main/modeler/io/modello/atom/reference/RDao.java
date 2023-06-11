@@ -1,4 +1,4 @@
-package io.modello.atom.normalize;
+package io.modello.atom.reference;
 
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;

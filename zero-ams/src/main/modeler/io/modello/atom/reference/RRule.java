@@ -1,4 +1,4 @@
-package io.modello.atom.normalize;
+package io.modello.atom.reference;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonArrayDeserializer;

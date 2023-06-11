@@ -2,6 +2,7 @@ package io.modello.atom.normalize;
 
 import io.horizon.eon.VName;
 import io.horizon.util.HUt;
+import io.modello.atom.reference.RRule;
 import io.modello.eon.em.EmAttribute;
 import io.modello.eon.em.EmValue;
 import io.modello.specification.atom.HAttribute;

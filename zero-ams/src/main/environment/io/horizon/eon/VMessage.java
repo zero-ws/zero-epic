@@ -155,7 +155,7 @@ public interface VMessage {
 
     // ---------- io.horizon.uca.log.Annal
     interface Annal {
-        String INTERNAL = "[ZERO] The inject Annal has not been configured, will select internal for {}.";
+        String INTERNAL = "[ZERO] The inject Annal has not been configured, will select environment for {}.";
         String CONFIGURED = "[ZERO] The logger ( Annal = {} ) has been selected for {} to record logs.";
     }
 

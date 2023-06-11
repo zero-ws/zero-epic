@@ -50,7 +50,7 @@ public class KDictUse implements Serializable, TJson, TCopy<KDictUse> {
     private String out;
     private boolean parent;
 
-    public static ConcurrentMap<String, KDictUse> mapEpsilon(final JsonObject epsilonJson) {
+    public static ConcurrentMap<String, KDictUse> epsilon(final JsonObject epsilonJson) {
         final ConcurrentMap<String, KDictUse> epsilonMap = new ConcurrentHashMap<>();
         if (HUt.isNotNil(epsilonJson)) {
             epsilonJson.fieldNames().stream()

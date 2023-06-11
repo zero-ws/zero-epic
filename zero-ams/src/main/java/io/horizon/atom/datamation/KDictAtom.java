@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * ## DictFabric
- *
  * Combiner of Dict
  * 1. `ConcurrentMap<String, Epsilon>` map stored field -> dict
  * 2. `ConcurrentMap<String, JsonArray>` dictionary data in current channel

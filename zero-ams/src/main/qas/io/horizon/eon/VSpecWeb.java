@@ -1,5 +1,7 @@
 package io.horizon.eon;
 
+import io.horizon.eon.em.Environment;
+
 /**
  * @author lang : 2023-05-29
  */
@@ -18,6 +20,33 @@ interface VSpecWeb {
         String CACHE = RUNTIME + "/cache";
         // runtime/log
         String LOG = RUNTIME + "/log";
+        // runtime/configuration.json
+        String CONFIGURATION_JSON = RUNTIME + "/configuration.json";
+        // runtime/external/
+        String EXTERNAL = RUNTIME + "/external";
+        // runtime/environment/
+        String ENVIRONMENT = RUNTIME + "/environment";
+
+        interface environment {
+
+            // runtime/environment/{0}-integration/
+            static String ofIntegration(final Environment environment) {
+                final String environmentName = environment.name().toLowerCase();
+                return ENVIRONMENT + "/" + environmentName + "-integration/";
+            }
+
+            // runtime/environment/{0}-database.json
+            static String ofDatabase(final Environment environment) {
+                final String environmentName = environment.name().toLowerCase();
+                return ENVIRONMENT + "/" + environmentName + "-database.json";
+            }
+        }
+
+        // runtime/configuration.json
+        interface configuration {
+            String STELLAR = "stellar";                  /* Definition: stellar */
+            String OPTIONS = "options";                  /* Definition: configuration options */
+        }
     }
 
     interface init {
@@ -43,15 +72,15 @@ interface VSpecWeb {
         interface library {
             // configuration/library/system
             String SYSTEM = LIBRARY + "/system";
-            // configuration/library/internal
-            String INTERNAL = LIBRARY + "/internal";
+            // configuration/library/environment
+            String INTERNAL = LIBRARY + "/environment";
             // configuration/library/external
             String EXTERNAL = LIBRARY + "/external";
         }
 
         interface editor {
-            // configuration/editor/internal
-            String INTERNAL = EDITOR + "/internal";
+            // configuration/editor/environment
+            String INTERNAL = EDITOR + "/environment";
             // configuration/editor/external
             String EXTERNAL = EDITOR + "/external";
         }

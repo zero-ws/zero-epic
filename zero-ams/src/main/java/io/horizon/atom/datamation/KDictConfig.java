@@ -31,36 +31,25 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class KDictConfig implements Serializable {
 
-    /*
-     * Source definition here for directory configuration
-     */
     private final List<KDictSource> source = new ArrayList<>();
-    private final ConcurrentMap<String, KDictUse> epsilon = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, KDictUse> consumer = new ConcurrentHashMap<>();
     private Class<?> component;
 
-    /*
-     * Build object of Dict
-     */
     public KDictConfig(final String literal) {
         if (HUt.isJArray(literal)) {
             final JsonArray parameters = new JsonArray(literal);
-            /* Initialize */
-            this.init(parameters);
+            HUt.itJArray(parameters)
+                .map(KDictSource::new)
+                .forEach(this.source::add);
         }
     }
 
     public KDictConfig(final JsonArray input) {
         if (Objects.nonNull(input)) {
-            /* Initialize */
-            this.init(input);
+            HUt.itJArray(input)
+                .map(KDictSource::new)
+                .forEach(this.source::add);
         }
-    }
-
-    private void init(final JsonArray input) {
-        /* Normalize `DictSource` List */
-        HUt.itJArray(input)
-            .map(KDictSource::new)
-            .forEach(this.source::add);
     }
 
     public KDictConfig bind(final Class<?> component) {
@@ -74,7 +63,7 @@ public class KDictConfig implements Serializable {
              * will be impact
              */
             this.source.clear();
-            this.epsilon.clear();
+            this.consumer.clear();
         } else {
             this.component = component;
         }
@@ -83,17 +72,9 @@ public class KDictConfig implements Serializable {
 
     public KDictConfig bind(final ConcurrentMap<String, KDictUse> epsilon) {
         if (Objects.nonNull(epsilon)) {
-            this.epsilon.putAll(epsilon);
+            this.consumer.putAll(epsilon);
         }
         return this;
-    }
-
-    public Class<?> getComponent() {
-        return this.component;
-    }
-
-    public ConcurrentMap<String, KDictUse> getEpsilon() {
-        return this.epsilon;
     }
 
     public boolean validSource() {
@@ -108,7 +89,15 @@ public class KDictConfig implements Serializable {
         return this.validSource() && Objects.nonNull(this.component);
     }
 
-    public List<KDictSource> getSource() {
+    public Class<?> configComponent() {
+        return this.component;
+    }
+
+    public ConcurrentMap<String, KDictUse> configUse() {
+        return this.consumer;
+    }
+
+    public List<KDictSource> configSource() {
         return this.source;
     }
 }

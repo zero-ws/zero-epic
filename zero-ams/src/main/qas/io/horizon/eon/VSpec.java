@@ -162,10 +162,10 @@ public interface VSpec {
      * <pre><code>
      *   - /configuration/library/      「库信息」
      *       - /system/                      系统库基础目录
-     *       - /internal/                    内置应用共享库
+     *       - /environment/                    内置应用共享库
      *       - /external/                    扩展库基础目录
      *   - /configuration/editor/       「编辑器」
-     *       - /internal/                    默认带的产品内置编辑器
+     *       - /environment/                    默认带的产品内置编辑器
      *          - /{editor_1}/                  编辑器1
      *          - /{editor_2}/                  编辑器2
      *          - ...

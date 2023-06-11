@@ -20,6 +20,7 @@ interface VSpecBoot {
         String ON = "on";
         String OFF = "off";
         String RUN = "run";
+        String PRE = "pre";
     }
 
     interface connect {

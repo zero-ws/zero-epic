@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentMap;
 /*
  * Identifier selector for some specific situation
  * 1) For channel, it's bind to `identifier` that's static in `I_SERVICE`
- * 2) Another `identifier` for switching here is that using `Identity` to
+ * 2) Another `identifier` for switching here is that using `KIdentity` to
  *    be selected here. It enhance the usage of `identifier`.
  *
  * The concept in Zero Extension should be

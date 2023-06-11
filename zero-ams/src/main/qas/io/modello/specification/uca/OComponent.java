@@ -1,6 +1,6 @@
 package io.modello.specification.uca;
 
-import io.horizon.atom.common.Kv;
+import io.horizon.atom.program.Kv;
 import io.modello.specification.HRecord;
 import io.vertx.core.json.JsonObject;
 

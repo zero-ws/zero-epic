@@ -1,4 +1,4 @@
-package io.horizon.atom.common;
+package io.horizon.atom.program;
 
 
 import io.horizon.util.HUt;
@@ -12,50 +12,50 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * @author <a href="http://www.origin-x.cn">Lang</a>
  */
-public class AttrSet implements Serializable {
+public class KVarSet implements Serializable {
 
-    private final ConcurrentMap<String, Attr> attrMap = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, KVar> attrMap = new ConcurrentHashMap<>();
 
-    private AttrSet() {
+    private KVarSet() {
     }
 
-    public static AttrSet of(final ConcurrentMap<String, Attr> data) {
-        final AttrSet set = new AttrSet();
+    public static KVarSet of(final ConcurrentMap<String, KVar> data) {
+        final KVarSet set = new KVarSet();
         set.bind(data);
         return set;
     }
 
-    public static AttrSet of() {
+    public static KVarSet of() {
         return of(new ConcurrentHashMap<>());
     }
 
-    public AttrSet bind(final ConcurrentMap<String, Attr> data) {
+    public KVarSet bind(final ConcurrentMap<String, KVar> data) {
         if (Objects.nonNull(data)) {
             this.attrMap.putAll(data);
         }
         return this;
     }
 
-    public AttrSet save(final String name, final String alias) {
+    public KVarSet save(final String name, final String alias) {
         return this.saveWith(name, alias, String.class, null);
     }
 
-    public AttrSet save(final String name, final String alias, final Class<?> type) {
+    public KVarSet save(final String name, final String alias, final Class<?> type) {
         return this.saveWith(name, alias, type, null);
     }
 
-    public AttrSet saveWith(final String name, final String alias,
+    public KVarSet saveWith(final String name, final String alias,
                             final Object value) {
         return this.saveWith(name, alias, String.class, value);
     }
 
-    public AttrSet saveWith(final String name, final String alias,
+    public KVarSet saveWith(final String name, final String alias,
                             final Class<?> type, final Object value) {
-        final Attr attr;
+        final KVar attr;
         if (this.attrMap.containsKey(name)) {
             attr = this.attrMap.get(name);
         } else {
-            attr = new Attr(name);
+            attr = new KVar(name);
         }
         attr.bind(Objects.isNull(type) ? String.class : type);
         if (HUt.isNotNil(alias)) {
@@ -66,12 +66,12 @@ public class AttrSet implements Serializable {
         return this;
     }
 
-    public AttrSet remove(final String name) {
+    public KVarSet remove(final String name) {
         this.attrMap.remove(name);
         return this;
     }
 
-    public Attr attribute(final String name) {
+    public KVar attribute(final String name) {
         return this.attrMap.getOrDefault(name, null);
     }
 

@@ -1,4 +1,4 @@
-package io.horizon.atom.common;
+package io.horizon.atom.program;
 
 import java.io.Serializable;
 
@@ -11,30 +11,30 @@ import java.io.Serializable;
  *
  * @author <a href="http://www.origin-x.cn">Lang</a>
  */
-public class Attr implements Serializable {
+public class KVar implements Serializable {
     private final String name;
     private String alias;
     private Class<?> type;
     private Object value;
 
-    public Attr(final String name) {
+    public KVar(final String name) {
         this.name = name;
         this.alias = name;
         this.type = String.class;
         this.value = null;
     }
 
-    public Attr bind(final String alias) {
+    public KVar bind(final String alias) {
         this.alias = alias;
         return this;
     }
 
-    public Attr bind(final Class<?> type) {
+    public KVar bind(final Class<?> type) {
         this.type = type;
         return this;
     }
 
-    public Attr value(final Object value) {
+    public KVar value(final Object value) {
         this.value = value;
         return this;
     }

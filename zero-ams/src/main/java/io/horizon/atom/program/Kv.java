@@ -1,4 +1,4 @@
-package io.horizon.atom.common;
+package io.horizon.atom.program;
 
 import java.util.Map;
 import java.util.Objects;

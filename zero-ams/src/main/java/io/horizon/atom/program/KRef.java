@@ -1,4 +1,4 @@
-package io.horizon.atom.common;
+package io.horizon.atom.program;
 
 import io.horizon.fn.HFn;
 import io.vertx.core.Future;
@@ -9,18 +9,18 @@ import io.vertx.core.Future;
  * Rxjava2.
  * For usage such as:
  *
- * compose(Refer::future)  // stored
+ * compose(KRef::future)  // stored
  * compose(xxx)
  * compose(x -> Refere.get()) // pick up
  *
  * When some steps skipped, this object is usage for reference stored
  */
 @SuppressWarnings("all")
-public final class Refer {
+public final class KRef {
 
     private Object reference;
 
-    public <T> Refer add(final T reference) {
+    public <T> KRef add(final T reference) {
         this.reference = reference;
         return this;
     }

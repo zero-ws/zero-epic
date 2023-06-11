@@ -1,6 +1,6 @@
 package io.modello.specification.uca;
 
-import io.horizon.atom.common.Kv;
+import io.horizon.atom.program.Kv;
 
 /**
  * @author <a href="http://www.origin-x.cn">Lang</a>

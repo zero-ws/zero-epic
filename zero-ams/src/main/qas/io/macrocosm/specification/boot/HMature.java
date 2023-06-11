@@ -1,6 +1,6 @@
 package io.macrocosm.specification.boot;
 
-import io.horizon.atom.common.AttrSet;
+import io.horizon.atom.program.KVarSet;
 import io.vertx.core.json.JsonObject;
 
 /**
@@ -13,5 +13,5 @@ import io.vertx.core.json.JsonObject;
  */
 public interface HMature {
     /* 环境变量加载，根据环境变量修订核心配置点，实现配置本身的处理 */
-    JsonObject configure(JsonObject configJ, AttrSet set);
+    JsonObject configure(JsonObject configJ, KVarSet set);
 }

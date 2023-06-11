@@ -55,7 +55,7 @@ public class KVarSet implements Serializable {
         if (this.attrMap.containsKey(name)) {
             attr = this.attrMap.get(name);
         } else {
-            attr = new KVar(name);
+            attr = KVar.of(name);
         }
         attr.bind(Objects.isNull(type) ? String.class : type);
         if (HUt.isNotNil(alias)) {

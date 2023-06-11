@@ -17,26 +17,33 @@ public class KVar implements Serializable {
     private Class<?> type;
     private Object value;
 
-    public KVar(final String name) {
+    protected KVar(final String name) {
         this.name = name;
         this.alias = name;
         this.type = String.class;
         this.value = null;
     }
 
-    public KVar bind(final String alias) {
+    public static KVar of(final String name) {
+        return new KVar(name);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public <C extends KVar> C bind(final String alias) {
         this.alias = alias;
-        return this;
+        return (C) this;
     }
 
-    public KVar bind(final Class<?> type) {
+    @SuppressWarnings("unchecked")
+    public <C extends KVar> C bind(final Class<?> type) {
         this.type = type;
-        return this;
+        return (C) this;
     }
 
-    public KVar value(final Object value) {
+    @SuppressWarnings("unchecked")
+    public <C extends KVar> C value(final Object value) {
         this.value = value;
-        return this;
+        return (C) this;
     }
 
     public String name() {

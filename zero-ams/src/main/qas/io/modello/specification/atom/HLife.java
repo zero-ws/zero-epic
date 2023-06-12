@@ -90,7 +90,7 @@ public interface HLife extends Serializable, TJson {
      * <pre><code>
      *     Development:                 src/main/resources/             开发环境
      *     Production:                  target/                         生产环境
-     *     Mockito:                     src/test/resources/             测试环境
+     *     Mockito:                     src/mock/resources/             测试环境
      * </code></pre>
      *
      * 每个目录中的结构基础规范如下：

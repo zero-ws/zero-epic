@@ -5,7 +5,7 @@ package io.horizon.eon.em;
  *
  * 1. Production: Prod Environment for deployment
  * 2. Development: Dev Environment for development;
- * 3. Mockito: Mockito Environment for `integration` debug to mock environment
+ * 3. Mockito: Mockito Environment for `integration` debug to atom environment
  *
  * @author <a href="http://www.origin-x.cn">Lang</a>
  */

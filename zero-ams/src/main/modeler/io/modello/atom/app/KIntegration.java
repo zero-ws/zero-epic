@@ -32,7 +32,7 @@ import java.util.concurrent.ConcurrentMap;
  *              "uri": "/uri/getinfo",
  *              "headers": {}
  *          },
- *          "post.test": {
+ *          "post.mock": {
  *              "method": "GET",
  *              "uri": "/uri/getinfo",
  *              "headers": {}

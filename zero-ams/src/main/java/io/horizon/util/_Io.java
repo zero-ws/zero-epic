@@ -36,7 +36,7 @@ class _Io extends _Inverse {
      * <pre><code>
      * - 开发环境：Development       -> src/main/resources
      * - 生产环境：Production        -> /
-     * - 测试环境：Mockito           -> src/test/resources
+     * - 测试环境：Mockito           -> src/mock/resources
      * </code></pre>
      *
      * @param path        路径

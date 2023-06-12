@@ -10,7 +10,7 @@ import io.horizon.specification.app.HVersion;
  * <pre><code>
  *     1. 主分支：master        生产发布分支
  *     2. 开发分支：develop     开发分支
- *     3. 测试分支：test        测试分支
+ *     3. 测试分支：mock        测试分支
  * </code></pre>
  *
  * @author lang : 2023-05-20

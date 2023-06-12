@@ -263,6 +263,5 @@ public interface VSpec {
      * </p>
      */
     interface Boot extends VSpecBoot {
-
     }
 }

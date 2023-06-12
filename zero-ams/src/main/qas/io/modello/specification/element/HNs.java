@@ -19,7 +19,7 @@ import io.modello.specification.atom.HLife;
  *     <li>prefix：当前名空间使用的默认的前缀，通常是 XML 中的前缀信息，默认为 ""</li>
  * </ol>
  *
- * 和原始建模项目的区别 zero-atom，zero-atom 是不跨应用部分的建模处理，而高阶建模部分是跨应用部分的建模，该模型由于包含了 uri 部分，
+ * 和原始建模项目的区别 zero-argument，zero-argument 是不跨应用部分的建模处理，而高阶建模部分是跨应用部分的建模，该模型由于包含了 uri 部分，
  * Domain部分的区别直接限定了其名空间信息，该接口和 {@link HLife} 接口的属性含义和对应关系：
  *
  * <pre><code>

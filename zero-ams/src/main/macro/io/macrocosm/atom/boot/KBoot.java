@@ -1,7 +1,7 @@
 package io.macrocosm.atom.boot;
 
-import io.horizon.eon.VSpec;
 import io.horizon.eon.em.EmApp;
+import io.horizon.eon.spec.VBoot;
 import io.horizon.util.HUt;
 import io.macrocosm.specification.config.HBoot;
 import io.macrocosm.specification.config.HEnergy;
@@ -19,7 +19,7 @@ public class KBoot implements HBoot {
     private EmApp.Type type;
 
     private KBoot(final JsonObject bootJ) {
-        this.launcherCls = HUt.valueC(bootJ, VSpec.Boot.LAUNCHER);
+        this.launcherCls = HUt.valueC(bootJ, VBoot.LAUNCHER);
         this.energy = KEnergy.of(bootJ);
     }
 

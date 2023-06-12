@@ -31,7 +31,7 @@ class _Modeler extends _It {
     /**
      * 根据应用程序名称获取应用程序名空间，注：默认的名空间是基于 Origin X Engine，这是 Zero 扩展框架内部的动态建模
      * 核心框架，且业务部分是闭源的，它负责直接将 DDL 部分的元数据存储到数据库中，您可以根据接口提供自己的实现，Zero中
-     * 的实现部分位于 zero-atom 扩展项目。
+     * 的实现部分位于 zero-argument 扩展项目。
      *
      * @param appName 应用程序名称
      *

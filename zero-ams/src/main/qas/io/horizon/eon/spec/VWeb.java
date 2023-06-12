@@ -1,13 +1,74 @@
-package io.horizon.eon;
+package io.horizon.eon.spec;
 
+import io.horizon.eon.VString;
 import io.horizon.eon.em.Environment;
 
 import java.util.Objects;
 
 /**
- * @author lang : 2023-05-29
+ * Bundle基础规范，当前版本为草稿，考虑如下几点：
+ * -----------------------------------------------------------------------------
+ * <p>
+ * 1. 核心目录<br/>
+ * 描述了标准目录空间下的基础内容，如：
+ * <pre><code>
+ *     全容器：
+ *     - configuration/             系统配置目录
+ *     - init/oob/                  出厂设置（初始化目录）
+ *     - runtime/                   运行时目录
+ *     - plugin/                    Zero Extension扩展目录
+ *     容器和模块对接（OSGI）：
+ *     - plugins/
+ *     - features/
+ *     - extensions/
+ * </code></pre>
+ * -----------------------------------------------------------------------------
+ * <p>
+ * 2. 全容器目录
+ * <pre><code>
+ *   - /configuration/library/      「库信息」
+ *       - /system/                      系统库基础目录
+ *       - /environment/                    内置应用共享库
+ *       - /external/                    扩展库基础目录
+ *   - /configuration/editor/       「编辑器」
+ *       - /environment/                    默认带的产品内置编辑器
+ *          - /{editor_1}/                  编辑器1
+ *          - /{editor_2}/                  编辑器2
+ *          - ...
+ *       - /external/                    扩展编辑器目录
+ *          - /{editor_1}/                  编辑器1
+ *          - /{editor_2}/                  编辑器2
+ *          - ...
+ *   - /init/oob/                   「数据初始化」OOB数据初始化（元数据导入）
+ *       - /secure/                      安全相关配置数据
+ *       - /environment/                 环境相关配置数据
+ *       - /navigation/                  服务于前端，由后端提供前端的导航基础（菜单部分的整体运行）
+ *   - /runtime/                    「运行时」
+ *       - /cache/                       运行时缓存基础
+ *       - /log/                         运行时日志信息
+ *
+ *   - /plugin/                     「旧版插件」区别于OSGI插件，此目录现阶段主要用于 Zero Extension 的遗留系统，且此规范主要应用于
+ *                                       单点系统部分，当您的应用是一个单机应用时，则需遵循此种规范，由于和 OSGI 插件规范近似，所以
+ *                                       此处需区分 `plugins` 和 `plugin` 两个目录，不同目录代表的含义有所区别，新版中的 OSGI模块
+ *                                       化处理完成后，此处的 `plugin` 目录将会被移除，统一使用 OSGI 插件规范。
+ *       - /{extension_1}/               扩展1
+ *       - /{extension_2}/               扩展2
+ *       - ...
+ *
+ *   {OSGI}                          「OSGI容器」 Bundle外层（接入，遵循OSGI基础规范）
+ *   - /features/                        功能
+ *   - /plugins/                         插件
+ *   - /extension/                   「Bundle扩展」（元模型级）
+ *       - /{bundle_1}/                  此处扩展为系统级扩展，在注册流程中，如果有需要直接将Bundle针对系统的基础扩展放置到此处，
+ *       - /{bundle_2}/                  并且根据Bundle本身的特性（identifier）构造对应的扩展目录，扩展出来的目录遵循基本的定义
+ *                                       配置，您可以为新的Bundle提前执行环境预处理，包括：
+ *                                       - 环境基础检查（准入规则）
+ *                                       - 环境运行检查（环境扫描）
+ *                                       - 运行状态检查（是否可激活、激活完成之后是否状态正常）
+ * </code></pre>
+ * </p>
  */
-interface VSpecWeb {
+public interface VWeb {
     String CONFIGURATION = "configuration";
     String INIT = "init";
     String RUNTIME = "runtime";
@@ -17,7 +78,7 @@ interface VSpecWeb {
     String FEATURES = "features";
     String EXTENSIONS = "extensions";
 
-    String ATOM = "atom";
+    String ATOM = "argument";
 
     interface atom {
 
@@ -142,7 +203,7 @@ interface VSpecWeb {
             String INTEGRATION = OOB + "/integration";
             /**
              * 模块化专用目录：init/oob/modulat
-             * 模块化目录会关联到模块部分 {@link VSpec.Extension} 的完整目录结构，并带上模块名称
+             * 模块化目录会关联到模块部分 {@link VExtension} 的完整目录结构，并带上模块名称
              */
             String MODULAT = OOB + "/modulat";
             /**

@@ -1,8 +1,8 @@
 package io.macrocosm.atom.boot;
 
-import io.horizon.eon.VSpec;
 import io.horizon.eon.em.EmApp;
 import io.horizon.eon.em.EmBoot;
+import io.horizon.eon.spec.VBoot;
 import io.horizon.util.HUt;
 import io.macrocosm.specification.config.HConfig;
 import io.macrocosm.specification.config.HEnergy;
@@ -46,8 +46,8 @@ public class KEnergy implements HEnergy {
      */
     public static HEnergy of(final JsonObject config) {
         final KEnergy energy = new KEnergy();
-        final JsonObject component = HUt.valueJObject(config, VSpec.Boot.COMPONENT);
-        final JsonObject configJ = HUt.valueJObject(config, VSpec.Boot.CONFIG);
+        final JsonObject component = HUt.valueJObject(config, VBoot.COMPONENT);
+        final JsonObject configJ = HUt.valueJObject(config, VBoot.CONFIG);
         /*
          * - pre, 针对 on / off / run 的特殊配置
          * - on
@@ -75,11 +75,11 @@ public class KEnergy implements HEnergy {
                 }
             } else if (configV instanceof JsonObject) {
                 JsonObject options = (JsonObject) configV;
-                final Class<?> instanceCls = HUt.valueC(options, VSpec.Boot.COMPONENT, null);
+                final Class<?> instanceCls = HUt.valueC(options, VBoot.COMPONENT, null);
                 if (Objects.nonNull(instanceCls)) {
                     final HConfig configRef = HUt.singleton(instanceCls);
                     options = options.copy();
-                    options.remove(VSpec.Boot.COMPONENT);
+                    options.remove(VBoot.COMPONENT);
                     configRef.options(options);
                     energy.bind(clazz, configRef);
                 }

@@ -46,7 +46,7 @@ public interface VMessage {
             String SCHEDULED = "[ Job ] (timer = {0}) `{1}` scheduled duration {2} ms in each.";
         }
 
-        // ------------ io.vertx.up.atom.worker.Mission
+        // ------------ io.vertx.up.argument.worker.Mission
         interface MISSION {
             String JOB_OFF = "[ Job ] Current job `{0}` has defined @Off method.";
         }

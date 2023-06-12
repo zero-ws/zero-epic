@@ -1,8 +1,10 @@
 package io.horizon.uca.boot;
 
 import io.horizon.eon.VMessage;
+import io.horizon.eon.em.Environment;
 import io.horizon.eon.em.app.OsType;
 import io.horizon.eon.spec.VBoot;
+import io.horizon.runtime.Macrocosm;
 import io.horizon.uca.log.LogAs;
 import io.horizon.util.HUt;
 
@@ -13,6 +15,14 @@ import java.util.concurrent.ConcurrentMap;
  * 「内置环境变量准备」
  * 开发环境综述，用于处理开发环境专用的启动器，在 KLauncher 中会被调用，主要检查
  * .env.development 文件，初始化当前环境的系统环境变量，执行完成后处理下一步骤
+ * 关于 {@link io.horizon.eon.em.Environment} 的计算流程如下
+ * <pre><code>
+ *     1. 默认情况下，如果检测到 .env.development 文件应该是
+ *        {@link io.horizon.eon.em.Environment#Development}
+ *     2. 但为了在开发环境中可直接使用生产环境 / 模拟环境相关环境变量，会在文件存在时检查 `ZERO_ENV` 的值，若不存在该值则不考虑环境变量的切换，若存在此环境变量则直接将环境变量强制转换成对应的值
+ *     3. 生产环境中不会将 .env.development 打包，且不会命中此文件开启开发模式
+ *
+ * </code></pre>
  *
  * @author lang : 2023-05-30
  */
@@ -37,7 +47,12 @@ class KEnvironment {
              * --add-opens java.base/java.lang=ALL-UNNAMED
              */
             final ConcurrentMap<String, String> written = HUt.envOut(properties);
-
+            {
+                // 1.1. 环境变量注入
+                if (!written.containsKey(Macrocosm.ZERO_ENV)) {
+                    written.put(Macrocosm.ZERO_ENV, Environment.Development.name());
+                }
+            }
 
             // 2. 环境变量打印
             final String environments = HUt.envString(written);

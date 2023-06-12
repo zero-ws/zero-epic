@@ -23,14 +23,14 @@ import java.util.function.Function;
  *           | - App1 ( 如 CMDB )
  *               | - 模块：module
  *                   | - Module 1.1
- *               | - 模型：argument
+ *               | - 模型：atom
  *                   | - Atom 1.1 ( 模型跟着应用走 )
  *
  *           | - App2 ( 如 ISO-27001 )
  *               | - 模块：module
  *                   | - Module 2.1
  *                   | - Module 2.2
- *               | - 模型：argument
+ *               | - 模型：atom
  *                   | - Atom 2.1 ( 模型跟着应用走 )
  *
  *           | - App3 ( 如 HOTEL / SMAVE )
@@ -39,7 +39,7 @@ import java.util.function.Function;
  *                   | - Module 3.2 ( SMAVE App )
  *                      | - Project 3.1
  *                      | - Project 3.2
- *               | - 模型：argument
+ *               | - 模型：atom
  *                   | - Atom 3.1 ( 模型跟着应用走 )
  * </code></pre>
  *

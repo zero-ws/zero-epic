@@ -131,7 +131,7 @@ public interface VName {
     String OUTPUT = "output";                    /* Output */
     String DATUM = "datum";                      /* Common: metadata key */
     String MAPPING = "mapping";                  /* Common: Json mapping configuration */
-    String ATOM = "argument";                        /* Common: Atom */
+    String ATOM = "atom";                        /* Common: Atom */
     String STATUS = "status";                    /* Common: status for different workflow */
     String SERIAL = "serial";                    /* Common: serial field ( XNumber related or other meaningful serial */
 

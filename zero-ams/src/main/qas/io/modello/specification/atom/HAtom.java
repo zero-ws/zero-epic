@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentMap;
  * 此处提供了所有基于Zero中支持的不同种类的模型定义：
  * <pre><code>
  * -- 动态模型：
- *    内置于扩展模块（ zero-argument ）中的 `M_X` 系列表结构存储元模型数据的建模，该模型的子类将被转换为
+ *    内置于扩展模块（ zero-atom ）中的 `M_X` 系列表结构存储元模型数据的建模，该模型的子类将被转换为
  *    DataAtom 类型
  *
  * -- 静态模型：

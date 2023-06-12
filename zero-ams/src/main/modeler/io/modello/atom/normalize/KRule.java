@@ -70,7 +70,7 @@ public class KRule implements HRule {
      * identifier = rule2
      * <pre><code>
      *     com.fasterxml.jackson.databind.exc.InvalidDefinitionException:
-     *     Cannot construct instance of `io.modello.specification.argument.HUnique`
+     *     Cannot construct instance of `io.modello.specification.atom.HUnique`
      *     (no Creators, like default constructor, exist):
      *     abstract types either need to be mapped to concrete types,
      *     have custom deserializer, or contain additional type information

@@ -95,14 +95,14 @@ public interface HLife extends Serializable, TJson {
      *
      * 每个目录中的结构基础规范如下：
      * <pre><code>
-     * /argument/                           Modeler, 建模专用目录（后期的标准化配置目录）
-     * /argument/<app>/meta                 元模型目录
+     * /atom/                           Modeler, 建模专用目录（后期的标准化配置目录）
+     * /atom/<app>/meta                 元模型目录
      *                                  - json:         JSON格式元模型
      *                                  - xml:          XML格式元模型
      *                                  - ecore:        EMF格式元模型
      *                                  - xlsx:         Excel格式元模型
-     * /argument/<app>/reference            JSON 链接文件专用目录
-     * /argument/<app>/rule                 JSON 链接文件专用目录
+     * /atom/<app>/reference            JSON 链接文件专用目录
+     * /atom/<app>/rule                 JSON 链接文件专用目录
      * /hybrid/                         @Deprecated,    Modeler, 静态建模专用目录（保留配置）
      * /cab/                            Web, 前端配置专用目录
      * /runtime/                        Web, 运行时目录

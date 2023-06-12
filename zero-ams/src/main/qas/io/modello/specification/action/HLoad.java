@@ -5,7 +5,7 @@ import io.modello.specification.atom.HAtom;
 /**
  * 统一模型加载专用接口，用于加载不同的模型，其中包括：
  * <pre><code>
- *     1. DataAtom，位于 zero-argument 项目中的基本动态建模核心模型。
+ *     1. DataAtom，位于 zero-atom 项目中的基本动态建模核心模型。
  *     2. NormAtom，使用 Hybrid 模式处理的静态混合相容的混合模型（现阶段主要使用于流程工单）。
  *     3. EmfAtom，使用 EMF 模式处理的动态核心模型（内部对接Emf规范），不开源不对外。
  * </code></pre>

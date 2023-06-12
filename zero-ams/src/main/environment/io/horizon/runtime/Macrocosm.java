@@ -103,6 +103,7 @@ public interface Macrocosm {
      */
     String AEON_CLOUD = "AEON_CLOUD";
     String AEON_APP = "AEON_APP";
+    String ZERO_ENV = "ZERO_ENV";
     String Z_APP = "Z_APP";
     String Z_NS = "Z_NS";
     String Z_TENANT = "Z_TENANT";

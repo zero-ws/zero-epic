@@ -18,9 +18,9 @@ import java.util.concurrent.ConcurrentMap;
  * 3. DualMapping Stored mapping ( from -> to )
  * 4. The `fabric` do not support mapping converting future( Important )
  */
-public class KDictAtom {
+public class KFabric {
 
-    private static final Annal LOGGER = Annal.get(KDictAtom.class);
+    private static final Annal LOGGER = Annal.get(KFabric.class);
     /*
      * From field = DictEpsilon
      * This map stored consume information of current usage, the format is as following
@@ -54,7 +54,7 @@ public class KDictAtom {
     private final ConcurrentMap<String, KMapping> toData
         = new ConcurrentHashMap<>();
 
-    private KDictAtom(final KMapping mapping) {
+    private KFabric(final KMapping mapping) {
         this.mapping = mapping;
     }
 
@@ -62,19 +62,19 @@ public class KDictAtom {
      * Here are the creation method for `DictFabric`
      * Each api will create new `DictFabric` object
      */
-    public static KDictAtom create(final KMapping mapping) {
-        return new KDictAtom(mapping);
+    public static KFabric create(final KMapping mapping) {
+        return new KFabric(mapping);
     }
 
-    public static KDictAtom create() {
-        return new KDictAtom(null);
+    public static KFabric create() {
+        return new KFabric(null);
     }
 
-    public KDictAtom copy() {
+    public KFabric copy() {
         return this.copy(null);
     }
 
-    public KDictAtom copy(final KMapping mapping) {
+    public KFabric copy(final KMapping mapping) {
         /*
          * Here are two mapping for copy
          * 1. When `mapping` is null, check whether there exist mapping
@@ -84,13 +84,13 @@ public class KDictAtom {
          * when you call `createCopy()` directly.
          */
         final KMapping calculated = Objects.isNull(mapping) ? this.mapping : mapping;
-        final KDictAtom created = create(calculated);
+        final KFabric created = create(calculated);
         created.dictionary(this.store.data());
         created.epsilon(this.epsilonMap);
         return created;
     }
 
-    public KDictAtom epsilon(final ConcurrentMap<String, KDictUse> epsilonMap) {
+    public KFabric epsilon(final ConcurrentMap<String, KDictUse> epsilonMap) {
         if (Objects.nonNull(epsilonMap) && !epsilonMap.isEmpty()) {
             /*
              * Re-bind
@@ -112,7 +112,7 @@ public class KDictAtom {
         return this;
     }
 
-    public KDictAtom dictionary(final ConcurrentMap<String, JsonArray> dictData) {
+    public KFabric dictionary(final ConcurrentMap<String, JsonArray> dictData) {
         // Call store for data replaced
         this.store.data(dictData);
         this.init();

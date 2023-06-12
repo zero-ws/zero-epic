@@ -102,6 +102,11 @@ public interface VWeb {
         // runtime/environment/
         String ENVIRONMENT = RUNTIME + "/environment";
 
+        interface external {
+            // runtime/external/integration.json
+            String INTEGRATION_JSON = EXTERNAL + "/integration.json";
+        }
+
         interface environment {
 
             // runtime/environment/{0}-integration/

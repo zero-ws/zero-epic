@@ -61,8 +61,10 @@ class HEnv {
     static ConcurrentMap<String, String> writeEnv(final Properties properties) {
         // 提取环境变量引用
         final Map<String, String> envMap = envMap();
-
         final ConcurrentMap<String, String> envResult = new ConcurrentHashMap<>();
+        if (Objects.isNull(envMap)) {
+            return envResult;
+        }
         final Enumeration<String> it = (Enumeration<String>) properties.propertyNames();
         while (it.hasMoreElements()) {
             final String name = it.nextElement();
@@ -81,6 +83,9 @@ class HEnv {
             return null;
         }
         final Map<String, String> envMap = envMap();
+        if (Objects.isNull(envMap)) {
+            return null;
+        }
         envMap.put(name, value);
         return Kv.create(name, value);
     }
@@ -89,14 +94,18 @@ class HEnv {
     private static Map<String, String> envMap() {
         return HFn.failOr(() -> {
             final Map<String, String> env = System.getenv();
-            final Field field = env.getClass().getDeclaredField("m");
-            field.setAccessible(true);
-            Map<String, String> mValue = (Map<String, String>) field.get(env);
-            // Fix issue: Cannot invoke "java.util.Map.put(Object,Object)" because "envMap" is null
-            if (Objects.isNull(mValue)) {
-                mValue = new HashMap<>();
+            try {
+                final Field field = env.getClass().getDeclaredField("m");
+                field.setAccessible(true);
+                Map<String, String> mValue = (Map<String, String>) field.get(env);
+                // Fix issue: Cannot invoke "java.util.Map.put(Object,Object)" because "envMap" is null
+                if (Objects.isNull(mValue)) {
+                    mValue = new HashMap<>();
+                }
+                return mValue;
+            } catch (final Throwable ex) {
+                return null;
             }
-            return mValue;
         });
     }
 }

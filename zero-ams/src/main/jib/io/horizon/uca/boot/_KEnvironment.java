@@ -41,18 +41,16 @@ class KEnvironment {
             LogAs.Boot.warn(KEnvironment.class, VMessage.KEnvironment.DEVELOPMENT,
                 os.name(), VBoot._ENV_DEVELOPMENT);
             final Properties properties = HUt.ioProperties(VBoot._ENV_DEVELOPMENT);
+            // 1.1. 环境变量注入
+            if (!properties.containsKey(Macrocosm.ZERO_ENV)) {
+                properties.put(Macrocosm.ZERO_ENV, Environment.Development.name());
+            }
             /*
              * 开发环境需要带上启动参数，否则会报错，这里是为了解决 JDK 9 以上版本的问题
              * --add-opens java.base/java.util=ALL-UNNAMED
              * --add-opens java.base/java.lang=ALL-UNNAMED
              */
             final ConcurrentMap<String, String> written = HUt.envOut(properties);
-            {
-                // 1.1. 环境变量注入
-                if (!written.containsKey(Macrocosm.ZERO_ENV)) {
-                    written.put(Macrocosm.ZERO_ENV, Environment.Development.name());
-                }
-            }
 
             // 2. 环境变量打印
             final String environments = HUt.envString(written);

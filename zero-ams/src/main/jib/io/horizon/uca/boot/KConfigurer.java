@@ -41,6 +41,10 @@ public class KConfigurer<T> {
         return new KConfigurer<>(energy);
     }
 
+    public static void environment() {
+        KEnvironment.initialize();
+    }
+
     public KConfigurer<T> bind(final String[] args) {
         this.arguments = args;
         LogAs.Boot.info(this.getClass(), VMessage.HOn.COMPONENT_ARGS, args.length, HUt.fromJoin(args));
@@ -48,6 +52,7 @@ public class KConfigurer<T> {
     }
 
     // Pre 执行 ----------------------------------------
+
     public <CONFIG extends HConfig> void preExecute(final T started, final CONFIG configuration) {
         final Class<?> preCls = this.energy.component(EmBoot.LifeCycle.PRE);
         Optional.ofNullable(preCls).ifPresent(pClass -> {

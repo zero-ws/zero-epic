@@ -53,7 +53,7 @@ public class KLauncher<T> {
 
     public <CONFIG extends HConfig> void start(final BiConsumer<T, CONFIG> consumer) {
         // 1. 环境变量连接，执行环境变量初始化
-        KEnvironment.initialize();
+        KConfigurer.environment();
 
         // 2. 提取自配置的 HOn 组件，执行启动前的初始化
         final HOn on = this.configurer.onComponent();

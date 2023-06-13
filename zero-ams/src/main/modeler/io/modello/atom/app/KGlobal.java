@@ -133,11 +133,11 @@ public class KGlobal implements Serializable, TCopy<KGlobal> {
     }
 
     public String appId() {
-        return HUt.valueString(this.application, VName.APP_ID);
+        return HUt.valueString(this.global, VName.APP_ID);
     }
 
     public String sigma() {
-        return HUt.valueString(this.application, VName.SIGMA);
+        return HUt.valueString(this.global, VName.SIGMA);
     }
 
     @Override

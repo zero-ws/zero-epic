@@ -35,6 +35,7 @@ public class KEnergy implements HEnergy {
      *        on:
      *        off:
      *        run:
+     *        pre:
      *     config:
      *     connect:
      *     rad:

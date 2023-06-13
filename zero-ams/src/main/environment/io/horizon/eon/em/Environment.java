@@ -1,11 +1,12 @@
 package io.horizon.eon.em;
 
 /**
- * # 「Co」Environment for different roles
- *
- * 1. Production: Prod Environment for deployment
- * 2. Development: Dev Environment for development;
- * 3. Mockito: Mockito Environment for `integration` debug to atom environment
+ * 不同角色的环境信息
+ * <pre><code>
+ *     1. Production: 部署专用生成环境
+ *     2. Development: 开发专用环境
+ *     3. Mockito: 集成测试专用环境
+ * </code></pre>
  *
  * @author <a href="http://www.origin-x.cn">Lang</a>
  */

@@ -132,6 +132,14 @@ public class KGlobal implements Serializable, TCopy<KGlobal> {
         this.application = application;
     }
 
+    public String appId() {
+        return HUt.valueString(this.application, VName.APP_ID);
+    }
+
+    public String sigma() {
+        return HUt.valueString(this.application, VName.SIGMA);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public <CHILD extends KGlobal> CHILD copy() {

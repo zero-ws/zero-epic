@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>zero-ams</artifactId>
+    <packaging>bundle</packaging>
     <name>Zero Spec / Agreed Metadata Specification</name>
     <dependencies>
         <!-- Vert.x -->
@@ -57,10 +58,6 @@
             <artifactId>jackson-module-afterburner</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-parameter-names</artifactId>
         </dependency>
@@ -71,6 +68,10 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -101,6 +102,29 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <!-- 导出 Vert.x 相关的包 -->
+                        <Export-Package>
+                            <!-- Zero -->
+                            io.horizon.*,
+                            io.modello.*,
+                            io.zerows.*,
+                            io.macrocosm.*,
+                            <!-- Vertx / Jackson -->
+                            io.vertx.*,
+                            com.fasterxml.jackson.*,
+                        </Export-Package>
+                        <Import-Package>
+                            io.netty.channel.epoll;resolution:=optional,
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.plugin.compiler}</version>
                 <configuration>
@@ -111,6 +135,28 @@
                         <arg>-Xlint:all,-options,-path</arg>
                     </compilerArgs>-->
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- <includeScope>compile</includeScope> -->
+                            <type>jar</type>
+                            <includeTypes>jar</includeTypes>
+                            <!-- 存放服务依赖的jar包，存放在服务相同目录的lib文件夹下 -->
+                            <outputDirectory>
+                                target/lib
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

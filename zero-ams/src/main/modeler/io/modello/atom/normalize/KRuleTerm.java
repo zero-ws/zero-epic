@@ -1,11 +1,11 @@
 package io.modello.atom.normalize;
 
-import com.fasterxml.jackson.databind.RuleTermDeserializer;
-import com.fasterxml.jackson.databind.RuleTermSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.zerows.jackson.databind.RuleTermDeserializer;
+import io.zerows.jackson.databind.RuleTermSerializer;
 
 import java.io.Serializable;
 import java.util.HashSet;

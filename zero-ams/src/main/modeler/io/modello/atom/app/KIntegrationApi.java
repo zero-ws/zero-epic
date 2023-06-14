@@ -1,13 +1,13 @@
 package io.modello.atom.app;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.JsonObjectDeserializer;
-import com.fasterxml.jackson.databind.JsonObjectSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.horizon.util.HUt;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
+import io.zerows.jackson.databind.JsonObjectDeserializer;
+import io.zerows.jackson.databind.JsonObjectSerializer;
 
 import java.io.Serializable;
 import java.util.Objects;

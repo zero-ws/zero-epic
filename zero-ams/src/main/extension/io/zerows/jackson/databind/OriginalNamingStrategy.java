@@ -1,5 +1,6 @@
-package com.fasterxml.jackson.databind;
+package io.zerows.jackson.databind;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import io.horizon.eon.VValue;

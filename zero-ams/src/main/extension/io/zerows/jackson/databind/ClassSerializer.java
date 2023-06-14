@@ -1,6 +1,8 @@
-package com.fasterxml.jackson.databind;
+package io.zerows.jackson.databind;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 
@@ -11,7 +13,7 @@ import java.io.IOException;
  * * It means that this class could be loaded once and usage multi-times. Here I provide default serializer to convert
  * * `java.lang.Class<?>` to `java.lang.String` to simplify the clazz look-up in container.
  *
- * This serializer is reverted component to {@link com.fasterxml.jackson.databind.ClassDeserializer}.
+ * This serializer is reverted component to {@link ClassDeserializer}.
  *
  * @author <a href="http://www.origin-x.cn">Lang</a>
  */

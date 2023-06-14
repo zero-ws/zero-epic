@@ -1,6 +1,8 @@
-package com.fasterxml.jackson.databind;
+package io.zerows.jackson.databind;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import io.vertx.core.json.JsonObject;
 
 import java.io.IOException;

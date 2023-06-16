@@ -84,7 +84,8 @@ class IoYaml {
 
     private static EmType.Yaml ioYamlType(final String content) {
         return HFn.runOr(EmType.Yaml.OBJECT, () -> {
-            if (content.trim().startsWith(VString.DASH)) {
+            final String contentYaml = content.trim();
+            if (contentYaml.startsWith(VString.DASH) || contentYaml.startsWith(VString.LEFT_SQUARE)) {
                 return EmType.Yaml.ARRAY;
             } else {
                 return EmType.Yaml.OBJECT;

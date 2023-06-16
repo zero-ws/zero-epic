@@ -1,36 +1,25 @@
 package io.horizon.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import io.horizon.annotations.ChatGPT;
 import io.horizon.eon.VString;
-import io.horizon.eon.VValue;
-import io.horizon.eon.em.typed.EmType;
 import io.horizon.exception.internal.EmptyIoException;
 import io.horizon.exception.internal.JsonFormatException;
 import io.horizon.fn.HFn;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * The library for IO resource reading.
  */
 final class Io {
-    /**
-     * Yaml
-     **/
-    private static final ObjectMapper YAML = new YAMLMapper();
 
     /**
      * 「DEAD-LOCK」LoggerFactory.getLogger
@@ -39,6 +28,27 @@ final class Io {
     private static final LogUtil LOG = LogUtil.from(Io.class);
 
     private Io() {
+    }
+
+    static JsonArray ioJArray(final InputStream in) {
+        final JsonArray content;
+        try {
+            content = new JsonArray(ioString(in, null));
+        } catch (final Throwable ex) {
+            throw new JsonFormatException(Io.class, "Stream/JArray");
+        }
+        return content;
+    }
+
+    static JsonArray ioJArray(final URL url) {
+        if (Objects.isNull(url)) {
+            return new JsonArray();
+        }
+        try (final InputStream in = url.openStream()) {
+            return ioJArray(in);
+        } catch (final Throwable ex) {
+            throw new EmptyIoException(Io.class, "URL/JArray: " + url.getPath());
+        }
     }
 
     static JsonArray ioJArray(final String filename) {
@@ -59,6 +69,39 @@ final class Io {
             throw new JsonFormatException(Io.class, filename);
         }
         return content;
+    }
+
+    static JsonObject ioJObject(final InputStream in) {
+        final JsonObject content;
+        try {
+            content = new JsonObject(ioString(in, null));
+        } catch (final Throwable ex) {
+            throw new JsonFormatException(Io.class, "Stream/JObject");
+        }
+        return content;
+    }
+
+    static JsonObject ioJObject(final URL url) {
+        if (Objects.isNull(url)) {
+            return new JsonObject();
+        }
+        try (final InputStream in = url.openStream()) {
+            return ioJObject(in);
+        } catch (final Throwable ex) {
+            throw new EmptyIoException(Io.class, "URL/JObject: " + url.getPath());
+        }
+    }
+
+
+    static String ioString(final URL url, final String joined) {
+        if (Objects.isNull(url)) {
+            return VString.EMPTY;
+        }
+        try (final InputStream in = url.openStream()) {
+            return ioString(in, joined);
+        } catch (final Throwable ex) {
+            throw new EmptyIoException(Io.class, "URL/String: " + url.getPath());
+        }
     }
 
     static String ioString(final InputStream in, final String joined) {
@@ -83,74 +126,6 @@ final class Io {
     }
 
     /**
-     * Read yaml to JsonObject
-     *
-     * @param filename input filename
-     *
-     * @return Deserialized type of T
-     */
-    @SuppressWarnings("unchecked")
-    static <T> T ioYaml(final String filename) {
-        if (TIs.isNil(filename)) {
-            /*
-             * If filename is null or empty
-             * return to null reference for future usage
-             */
-            return null;
-        }
-        final EmType.Yaml type = getYamlType(filename);
-        if (Objects.isNull(type)) {
-            return null;
-        }
-        final String literal = getYamlNode(filename).toString();
-        if (TIs.isNil(literal)) {
-            /*
-             * If content is null or empty
-             * return to null reference for future usage
-             */
-            return null;
-        } else {
-            if (EmType.Yaml.ARRAY == type) {
-                return (T) new JsonArray(literal);
-            } else {
-                return (T) new JsonObject(literal);
-            }
-        }
-    }
-
-    private static JsonNode getYamlNode(final String filename) {
-        final InputStream in = IoStream.read(filename);
-        final JsonNode node = HFn.failOr(() -> {
-            if (null == in) {
-                throw new EmptyIoException(Io.class, filename);
-            }
-            return YAML.readTree(in);
-        });
-        if (null == node) {
-            throw new EmptyIoException(Io.class, filename);
-        }
-        return node;
-    }
-
-    /**
-     * Check yaml type
-     *
-     * @param filename input file name
-     *
-     * @return Yaml of the file by format
-     */
-    private static EmType.Yaml getYamlType(final String filename) {
-        final String content = ioString(filename, null);
-        return HFn.runOr(EmType.Yaml.OBJECT, () -> {
-            if (content.trim().startsWith(VString.DASH)) {
-                return EmType.Yaml.ARRAY;
-            } else {
-                return EmType.Yaml.OBJECT;
-            }
-        }, content);
-    }
-
-    /**
      * Read to property object
      *
      * @param filename input filename
@@ -167,13 +142,6 @@ final class Io {
         }, filename);
     }
 
-    /**
-     * Read to URL
-     *
-     * @param filename input filename
-     *
-     * @return URL of this filename include ZIP/JAR url
-     */
     static URL ioURL(final String filename) {
         return HFn.failOr(() -> {
             final URL url = Thread.currentThread().getContextClassLoader()
@@ -184,31 +152,7 @@ final class Io {
         }, filename);
     }
 
-    /**
-     * Read to Buffer
-     *
-     * @param filename input filename
-     *
-     * @return Buffer from filename
-     */
-    @SuppressWarnings("all")
-    static Buffer ioBuffer(final String filename) {
-        final InputStream in = IoStream.read(filename);
-        return HFn.failOr(() -> {
-            final byte[] bytes = new byte[in.available()];
-            in.read(bytes);
-            in.close();
-            return Buffer.buffer(bytes);
-        }, in);
-    }
 
-    /**
-     * Read to File
-     *
-     * @param filename input filename
-     *
-     * @return File object by filename that input
-     */
     static File ioFile(final String filename) {
         return HFn.failOr(() -> {
             final File file = new File(filename);
@@ -254,39 +198,5 @@ final class Io {
                 return file.getAbsolutePath();
             }, file);
         }, filename);
-    }
-
-    static String ioCompress(final String file) {
-        final byte[] bytes = IoStream.readBytes(file);
-        final byte[] compressed = IoCompressor.decompress(bytes);
-        return new String(compressed, VValue.DFT.CHARSET);
-    }
-
-    static Buffer zip(final Set<String> fileSet) {
-        // Create Tpl zip file path
-        return HFn.failOr(() -> {
-            final ByteArrayOutputStream fos = new ByteArrayOutputStream();
-            try (final ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(fos))) {
-                final byte[] buffers = new byte[VValue.DFT.SIZE_BYTE_ARRAY];
-                fileSet.forEach(filename -> zipWrite(zos, buffers, filename));
-            }
-            return Buffer.buffer(fos.toByteArray());
-        });
-    }
-
-    @ChatGPT
-    private static void zipWrite(final ZipOutputStream zos, final byte[] buffers, final String filename) {
-        HFn.jvmAt(() -> {
-            final File file = new File(filename);
-            final ZipEntry zipEntry = new ZipEntry(file.getName());
-            zos.putNextEntry(zipEntry);
-            try (final FileInputStream fis = new FileInputStream(file);
-                 final BufferedInputStream bis = new BufferedInputStream(fis, VValue.DFT.SIZE_BYTE_ARRAY)) {
-                int read;
-                while ((read = bis.read(buffers)) != -1) {
-                    zos.write(buffers, 0, read);
-                }
-            }
-        });
     }
 }

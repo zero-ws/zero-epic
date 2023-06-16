@@ -9,6 +9,7 @@ import io.vertx.core.json.JsonObject;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,6 +18,40 @@ import java.util.Properties;
  */
 class _Io extends _Inverse {
     protected _Io() {
+    }
+
+
+    /**
+     * 读取文件名路径中的文件，读取成Buffer对象
+     *
+     * @param filename 文件路径
+     *
+     * @return {@link Buffer}
+     */
+    public static Buffer ioBuffer(final String filename) {
+        return IoStream.ioBuffer(filename);
+    }
+
+    /**
+     * 读取文件名路径中的文件，读取成Buffer对象
+     *
+     * @param in 输入流
+     *
+     * @return {@link Buffer}
+     */
+    public static Buffer ioBuffer(final InputStream in) {
+        return IoStream.ioBuffer(in);
+    }
+
+    /**
+     * 读取文件名路径中的文件，读取成Buffer对象
+     *
+     * @param url {@link URL} 路径
+     *
+     * @return {@link Buffer}
+     */
+    public static Buffer ioBuffer(final URL url) {
+        return IoStream.ioBuffer(url);
     }
 
     /**
@@ -231,17 +266,6 @@ class _Io extends _Inverse {
         return IoStream.read(filename, IoStream.class);
     }
 
-    /**
-     * 读取传入文件（YAML文件格式），读取成想要的JsonObject/JsonArray对象
-     *
-     * @param filename 文件路径
-     * @param <T>      泛型
-     *
-     * @return 文件对象
-     */
-    public static <T> T ioYaml(final String filename) {
-        return Io.ioYaml(filename);
-    }
 
     /**
      * 读取文件路径中，读取成File对象
@@ -288,6 +312,50 @@ class _Io extends _Inverse {
     }
 
     /**
+     * 读取文件路径中的文件，读取成JsonArray对象
+     *
+     * @param in 文件输入流
+     *
+     * @return JsonArray对象
+     */
+    public static JsonArray ioJArray(final InputStream in) {
+        return _Value.valueJArray(Io.ioJArray(in));
+    }
+
+    /**
+     * 读取文件路径中的文件，读取成JsonArray对象
+     *
+     * @param url 文件URL路径
+     *
+     * @return JsonArray对象
+     */
+    public static JsonArray ioJArray(final URL url) {
+        return _Value.valueJArray(Io.ioJArray(url));
+    }
+
+    /**
+     * 读取文件路径中的文件，读取成JsonObject对象
+     *
+     * @param in 文件输入流
+     *
+     * @return JsonObject对象
+     */
+    public static JsonObject ioJObject(final InputStream in) {
+        return _Value.valueJObject(Io.ioJObject(in));
+    }
+
+    /**
+     * 读取文件路径中的文件，读取成JsonObject对象
+     *
+     * @param url 文件URL路径
+     *
+     * @return JsonObject对象
+     */
+    public static JsonObject ioJObject(final URL url) {
+        return _Value.valueJObject(Io.ioJObject(url));
+    }
+
+    /**
      * 读取文件路径中的文件，读取成JsonObject对象
      *
      * @param filename 文件路径
@@ -301,12 +369,35 @@ class _Io extends _Inverse {
     /**
      * 读取文件流中的数据，读取成String对象
      *
+     * @param url URL路径
+     *
+     * @return String对象
+     */
+    public static String ioString(final URL url) {
+        return Io.ioString(url, null);
+    }
+
+    /**
+     * 读取文件流中的数据，读取成String对象
+     *
      * @param in 文件流
      *
      * @return String对象
      */
     public static String ioString(final InputStream in) {
         return Io.ioString(in, null);
+    }
+
+    /**
+     * 读取文件流中的数据，读取成String对象
+     *
+     * @param url    URL路径
+     * @param joined 分隔符
+     *
+     * @return String对象
+     */
+    public static String ioString(final URL url, final String joined) {
+        return Io.ioString(url, joined);
     }
 
     /**
@@ -345,17 +436,6 @@ class _Io extends _Inverse {
     }
 
     /**
-     * 读取文件名路径中的文件，读取成String对象
-     *
-     * @param filename 文件路径
-     *
-     * @return String对象
-     */
-    public static Buffer ioBuffer(final String filename) {
-        return Io.ioBuffer(filename);
-    }
-
-    /**
      * 读取压缩文件中的数据
      *
      * @param filename 文件路径
@@ -363,7 +443,7 @@ class _Io extends _Inverse {
      * @return 压缩文件流
      */
     public static String ioCompress(final String filename) {
-        return Io.ioCompress(filename);
+        return IoZip.ioCompress(filename);
     }
 
     /**
@@ -445,5 +525,41 @@ class _Io extends _Inverse {
      */
     public static void ioOut(final String file, final OutputStream output) {
         IoOut.writeBig(file, output);
+    }
+
+    /**
+     * 读取传入文件（YAML文件格式），读取成想要的JsonObject/JsonArray对象
+     *
+     * @param filename 文件路径
+     * @param <T>      泛型
+     *
+     * @return JsonObject/JsonArray
+     */
+    public static <T> T ioYaml(final String filename) {
+        return IoYaml.ioYaml(filename);
+    }
+
+    /**
+     * 读取传入文件（YAML文件格式），读取成想要的JsonObject/JsonArray对象
+     *
+     * @param in  流对象
+     * @param <T> 泛型
+     *
+     * @return JsonObject/JsonArray
+     */
+    public static <T> T ioYaml(final InputStream in) {
+        return IoYaml.ioYaml(in);
+    }
+
+    /**
+     * 读取传入文件（YAML文件格式），读取成想要的JsonObject/JsonArray对象
+     *
+     * @param url 网络URL对象
+     * @param <T> 泛型
+     *
+     * @return JsonObject/JsonArray
+     */
+    public static <T> T ioYaml(final URL url) {
+        return IoYaml.ioYaml(url);
     }
 }

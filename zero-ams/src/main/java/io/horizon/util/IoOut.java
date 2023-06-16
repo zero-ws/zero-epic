@@ -66,7 +66,7 @@ final class IoOut {
 
     static void writeCompress(final String path, final String data) {
         final byte[] dataBytes = data.getBytes(io.horizon.eon.VValue.DFT.CHARSET);
-        final byte[] output = IoCompressor.compress(dataBytes, CompressLevel.BEST_COMPRESSION);
+        final byte[] output = IoZip.compress(dataBytes, CompressLevel.BEST_COMPRESSION);
         HFn.jvmAt(() -> {
             final FileOutputStream fos = new FileOutputStream(path);
             fos.write(output);

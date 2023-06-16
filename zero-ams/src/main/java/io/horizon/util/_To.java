@@ -249,7 +249,7 @@ class _To extends _Serialize {
      * @return 压缩文件流
      */
     public static Buffer toZip(final Set<String> fileSet) {
-        return Io.zip(fileSet);
+        return IoZip.ioZip(fileSet);
     }
 
     /**

@@ -25,6 +25,32 @@ final class IoStream {
     private IoStream() {
     }
 
+    static Buffer ioBuffer(final String filename) {
+        final InputStream in = read(filename);
+        return ioBuffer(in);
+    }
+
+    static Buffer ioBuffer(final URL url) {
+        if (Objects.isNull(url)) {
+            return Buffer.buffer();
+        }
+        try (final InputStream in = url.openStream()) {
+            return ioBuffer(in);
+        } catch (final IOException ex) {
+            throw new EmptyIoException(IoStream.class, "URL/Buffer: " + url.getPath());
+        }
+    }
+
+    @SuppressWarnings("all")
+    static Buffer ioBuffer(final InputStream in) {
+        return HFn.failOr(() -> {
+            final byte[] bytes = new byte[in.available()];
+            in.read(bytes);
+            in.close();
+            return Buffer.buffer(bytes);
+        }, in);
+    }
+
     /**
      * Codec usage
      *

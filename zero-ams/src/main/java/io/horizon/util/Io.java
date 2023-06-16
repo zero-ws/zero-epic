@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import io.horizon.annotations.ChatGPT;
 import io.horizon.eon.VString;
 import io.horizon.eon.VValue;
-import io.horizon.eon.em.EmType;
+import io.horizon.eon.em.typed.EmType;
 import io.horizon.exception.internal.EmptyIoException;
 import io.horizon.exception.internal.JsonFormatException;
 import io.horizon.fn.HFn;

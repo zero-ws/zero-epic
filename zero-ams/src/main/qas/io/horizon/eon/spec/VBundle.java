@@ -25,7 +25,7 @@ import io.horizon.util.HUt;
  *   - extension/                       （扩展）第三方开发的扩展JAR文件
  * - modeler/                           （后端）模型库
  *   - emf/                                  - EMF模型库
- *   - argument/                                 - zero-argument 专用模型库
+ *   - atom/                                 - zero-atom 专用模型库
  *     - meta/                                  - 定义
  *     - reference/                             - 引用
  *     - rule/                                  - 规则

@@ -1,6 +1,6 @@
 package io.horizon.specification.storage;
 
-import io.horizon.eon.em.EmType;
+import io.horizon.eon.em.typed.EmType;
 import io.horizon.specification.typed.TContract;
 import io.horizon.specification.typed.TExecutor;
 

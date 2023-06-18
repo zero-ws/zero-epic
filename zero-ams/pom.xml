@@ -137,6 +137,17 @@
                             logback-classic;groupId=ch.qos.logback;artifactId=logback-classic;inline=true
                         </Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
+                        <Export-Service>
+                            io.horizon.spi.boot.HEquip,
+                            io.horizon.spi.cloud.HED,
+                            io.horizon.spi.modeler.AtomNs,
+                            io.horizon.spi.modeler.Identifier,
+                            io.horizon.spi.modeler.Indent,
+                            io.horizon.spi.modeler.MetaOn,
+                            io.horizon.spi.typed.VsExtension,
+                            io.horizon.spi.BootIo,
+                            io.horizon.spi.HorizonIo
+                        </Export-Service>
                     </instructions>
                 </configuration>
             </plugin>

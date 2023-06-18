@@ -1,6 +1,7 @@
 package io.horizon.util;
 
 import io.horizon.exception.internal.SPINullException;
+import io.horizon.uca.log.LogAs;
 
 import java.util.*;
 
@@ -19,9 +20,11 @@ final class HSPI {
         final List<T> list = new ArrayList<>();
         ServiceLoader<T> factories;
         if (classLoader != null) {
+            LogAs.Spi.info(HSPI.class, "ClassLoader ( In ): {0}", classLoader);
             factories = ServiceLoader.load(clazz, classLoader);
         } else {
             // 等价代码：ServiceLoader.load(clazz, TCCL);
+            LogAs.Spi.info(HSPI.class, "ClassLoader ( HSPI ): {0}", HSPI.class.getClassLoader());
             factories = ServiceLoader.load(clazz);
         }
         if (factories.iterator().hasNext()) {
@@ -30,7 +33,9 @@ final class HSPI {
         } else {
             // 默认使用 TCCL，但在 OSGi 环境中可能不够，因此尝试使用加载此类的类加载器，所以为了兼容 osgi 环境，需要使用
             // ServiceLoader.load(clazz, Spi.class.getClassLoader()) 加载
-            factories = ServiceLoader.load(clazz, HSPI.class.getClassLoader());
+            final ClassLoader TCCL = HSPI.class.getClassLoader();
+            LogAs.Spi.info(HSPI.class, "ClassLoader ( TCCL ): {0}", TCCL);
+            factories = ServiceLoader.load(clazz, TCCL);
             if (factories.iterator().hasNext()) {
                 factories.iterator().forEachRemaining(list::add);
                 return list;

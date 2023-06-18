@@ -8,4 +8,5 @@ public interface LogAs {
 
     LogModule Fs = Log.modulat(MODULE).cloud("Fs");
     LogModule Boot = Log.modulat(MODULE).extension("Boot");
+    LogModule Spi = Log.modulat(MODULE).extension("Spi");
 }

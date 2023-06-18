@@ -1,8 +1,10 @@
 package io.horizon.uca.log;
 
+import io.horizon.spi.HorizonIo;
 import io.horizon.uca.cache.Cc;
 import io.horizon.util.HUt;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -45,8 +47,9 @@ public class LogFactory {
      *
      * @return {@link LogModule}
      */
-    public LogModule osgi(final String type) {
-        return this.extension(type, HUt::rgbCyanN);
+    public LogModule osgi(final String type, final HorizonIo io) {
+        Objects.requireNonNull(io);
+        return new LogModule(this.module).bind(type).bind(HUt::rgbCyanN).io(io);
     }
     // ----------------- 粗体
 

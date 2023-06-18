@@ -24,9 +24,7 @@ public class BridgeAnnal extends AbstractAnnal implements Annal {
     private static final Logger LOGGER = LoggerFactory.getLogger(BridgeAnnal.class);
     private transient final Annal logger;
 
-    public BridgeAnnal(final Class<?> clazz) {
-        // Class<?> inject = ZeroAmbient.getPlugin("logger");
-        final HorizonIo io = HUt.service(HorizonIo.class);
+    public BridgeAnnal(final Class<?> clazz, final HorizonIo io) {
         Class<?> inject = Objects.isNull(io) ? null : io.ofLogger();
         if (null == inject) {
             inject = Log4JAnnal.class;

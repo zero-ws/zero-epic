@@ -39,13 +39,13 @@ public class LogFactory {
 
     /**
      * 「OSGI日志器」Cyan普通体
-     * OSGI 专用系统日志器，通常用于 bundle 中的日志系统
+     * OSGI 专用系统日志器，通常用于 OSGI 中的日志系统，如 Bundle / Launcher
      *
      * @param type 日志类型，日志类型决定了日志的颜色和输出文字基本信息
      *
      * @return {@link LogModule}
      */
-    public LogModule bundle(final String type) {
+    public LogModule osgi(final String type) {
         return this.extension(type, HUt::rgbCyanN);
     }
     // ----------------- 粗体

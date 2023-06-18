@@ -23,21 +23,69 @@ public class LogFactory {
         return CC_LOG_FACTORY.pick(() -> new LogFactory(module), module);
     }
 
-    public LogModule program(final String type) {
-        return this.extension(type, HUt::rgbBlueN);
-    }
+    // ----------------- 普通体
 
+    /**
+     * 「配置日志器」Green普通体
+     * 配置化系统专用日志处理器程序，生成基于配置的 {@link LogModule} 专用日志记录器，动态配置系统专用日志器
+     *
+     * @param type 日志类型，日志类型决定了日志的颜色和输出文字基本信息
+     *
+     * @return {@link LogModule}
+     */
     public LogModule configure(final String type) {
         return this.extension(type, HUt::rgbGreenN);
     }
 
-    public LogModule infix(final String type) {
+    /**
+     * 「OSGI日志器」Cyan普通体
+     * OSGI 专用系统日志器，通常用于 bundle 中的日志系统
+     *
+     * @param type 日志类型，日志类型决定了日志的颜色和输出文字基本信息
+     *
+     * @return {@link LogModule}
+     */
+    public LogModule bundle(final String type) {
         return this.extension(type, HUt::rgbCyanN);
     }
+    // ----------------- 粗体
 
-    public LogModule cloud(final String type) {
+    /**
+     * 「插件日志器」Cyan粗体
+     * zero-equip 扩展模块专用日志器，对应到项目中的所有模块创建的日志系统
+     *
+     * @param type 日志类型，日志类型决定了日志的颜色和输出文字基本信息
+     *
+     * @return {@link LogModule}
+     */
+    public LogModule infix(final String type) {
+        return this.extension(type, HUt::rgbCyanB);
+    }
+
+    /**
+     * 「扩展模块日志器」Blue粗体
+     * zero-extension 扩展模块专用日志器，对应到项目中的所有模块创建的日志系统
+     *
+     * @param type 日志类型，日志类型决定了日志的颜色和输出文字基本信息
+     *
+     * @return {@link LogModule}
+     */
+    public LogModule extension(final String type) {
         return this.extension(type, HUt::rgbBlueB);
     }
+
+    /**
+     * 「云端日志器」Red粗体
+     * aeon 系统专用日志器，对应到项目中所有的云端日志系统
+     *
+     * @param type 日志类型，日志类型决定了日志的颜色和输出文字基本信息
+     *
+     * @return {@link LogModule}
+     */
+    public LogModule cloud(final String type) {
+        return this.extension(type, HUt::rgbRedB);
+    }
+
 
     private LogModule extension(final String type, final Function<String, String> colorFn) {
         return CC_LOG_EXTENSION.pick(

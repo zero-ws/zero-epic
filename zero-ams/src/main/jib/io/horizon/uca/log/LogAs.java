@@ -7,5 +7,5 @@ public interface LogAs {
     String MODULE = "Προδιαγραφή μεταδεδομένων";
 
     LogModule Fs = Log.modulat(MODULE).cloud("Fs");
-    LogModule Boot = Log.modulat(MODULE).program("Boot");
+    LogModule Boot = Log.modulat(MODULE).extension("Boot");
 }

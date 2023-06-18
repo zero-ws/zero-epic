@@ -299,6 +299,9 @@ public interface VName {
 
     String ACL = "acl";
 
+    String CONTEXT = "context";
+    String VERSION = "version";
+
     /**
      * 特殊属性，用于系统做比对专用
      * 可直接被继承

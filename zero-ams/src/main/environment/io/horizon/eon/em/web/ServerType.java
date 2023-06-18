@@ -16,12 +16,30 @@ public enum ServerType {
     SOCK("sock"),
     RX("rx"),
     IPC("ipc"),
-    API("api");
+    API("api"),
+    NONE("none");
 
     private transient final String literal;
 
     ServerType(final String literal) {
         this.literal = literal;
+    }
+
+    public static ServerType of(final String literal) {
+        switch (literal) {
+            case "http":
+                return HTTP;
+            case "sock":
+                return SOCK;
+            case "rx":
+                return RX;
+            case "ipc":
+                return IPC;
+            case "api":
+                return API;
+            default:
+                return NONE;
+        }
     }
 
     public String key() {

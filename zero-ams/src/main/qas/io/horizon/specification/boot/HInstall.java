@@ -16,15 +16,19 @@ package io.horizon.specification.boot;
  * @author lang : 2023-05-25
  */
 public interface HInstall<BND> {
-    void configure(BND bundle);
+    default void configure(final BND bundle) {
+    }
 
-    void install(BND bundle);
+    default void install(final BND bundle) {
+    }
 
     void start(BND bundle);
 
     void stop(BND bundle);
 
-    void unregister(BND bundle);
+    default void unregister(final BND bundle) {
+    }
 
-    void cleanup(BND bundle);
+    default void cleanup(final BND bundle) {
+    }
 }

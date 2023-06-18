@@ -1,7 +1,6 @@
 package io.horizon.util;
 
 import io.horizon.exception.internal.SPINullException;
-import io.horizon.uca.log.LogAs;
 
 import java.util.*;
 
@@ -9,6 +8,7 @@ import java.util.*;
  * @author lang : 2023/4/27
  */
 final class HSPI {
+
     private HSPI() {
     }
 
@@ -20,29 +20,49 @@ final class HSPI {
         final List<T> list = new ArrayList<>();
         ServiceLoader<T> factories;
         if (classLoader != null) {
-            LogAs.Spi.info(HSPI.class, "ClassLoader ( In ): {0}", classLoader);
+            /*
+             * 1. 外部传入了 ClassLoader，这种情况直接使用外部的 ClassLoader 加载
+             */
             factories = ServiceLoader.load(clazz, classLoader);
         } else {
-            // 等价代码：ServiceLoader.load(clazz, TCCL);
-            LogAs.Spi.info(HSPI.class, "ClassLoader ( HSPI ): {0}", HSPI.class.getClassLoader());
-            factories = ServiceLoader.load(clazz);
+            /*
+             * 2. 外部没有传入 ClassLoader，则直接使用 TCCL 加载
+             */
+            final ClassLoader TCCL = Thread.currentThread().getContextClassLoader();
+            factories = ServiceLoader.load(clazz, TCCL);
         }
+        if (factories.iterator().hasNext()) {
+            /* 「OK」上边二选一已拿到信息，则直接遍历提取 */
+            factories.iterator().forEachRemaining(list::add);
+            return list;
+        }
+
+
+        /*
+         * 3. 默认使用 TCCL，但在 OSGi 环境中可能不够，因此尝试使用加载此类的类加载器，所以为了兼容 osgi 环境，需要使用
+         *    - clazz 的类加载器
+         *    - HSPI.class 的类加载器
+         */
+        final ClassLoader clazzLoader = clazz.getClassLoader();
+        factories = ServiceLoader.load(clazz, clazzLoader);
+        if (factories.iterator().hasNext()) {
+            /* 「OK」上边已拿到信息，则直接遍历提取 */
+            factories.iterator().forEachRemaining(list::add);
+            return list;
+        }
+
+
+        /*
+         * 4. 直接使用 HSPI.class 的类加载器（特殊情况）
+         */
+        final ClassLoader spiLoader = HSPI.class.getClassLoader();
+        factories = ServiceLoader.load(clazz, spiLoader);
         if (factories.iterator().hasNext()) {
             factories.iterator().forEachRemaining(list::add);
             return list;
-        } else {
-            // 默认使用 TCCL，但在 OSGi 环境中可能不够，因此尝试使用加载此类的类加载器，所以为了兼容 osgi 环境，需要使用
-            // ServiceLoader.load(clazz, Spi.class.getClassLoader()) 加载
-            final ClassLoader TCCL = HSPI.class.getClassLoader();
-            LogAs.Spi.info(HSPI.class, "ClassLoader ( TCCL ): {0}", TCCL);
-            factories = ServiceLoader.load(clazz, TCCL);
-            if (factories.iterator().hasNext()) {
-                factories.iterator().forEachRemaining(list::add);
-                return list;
-            } else {
-                return Collections.emptyList();
-            }
         }
+        
+        return Collections.emptyList();
     }
 
     static <T> T service(final Class<T> interfaceCls, final Class<?> caller, final boolean strict) {

@@ -107,6 +107,9 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
+                        <_fixupmessages>
+                            "Classes found in the wrong directory";restrict:=error;is:=ignore
+                        </_fixupmessages>
                         <!-- 导出 Vert.x 相关的包 -->
                         <Export-Package>
                             <!-- Zero -->
@@ -130,7 +133,7 @@
                             ch.qos.logback.*
                         </Export-Package>
                         <Import-Package>
-                            io.netty.channel.epoll;resolution:=optional,
+                            io.netty.channel.epoll;resolution:=optional
                         </Import-Package>
                         <Embed-Dependency>
                             slf4j-api;groupId=org.slf4j;artifactId=slf4j-api;inline=true,

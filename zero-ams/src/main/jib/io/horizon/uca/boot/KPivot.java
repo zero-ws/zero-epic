@@ -82,6 +82,10 @@ public class KPivot<T> {
     }
 
     public Future<Set<HArk>> registryAsync(final HConfig config) {
+        // 纯容器模式
+        if (Objects.isNull(config)) {
+            return Future.succeededFuture(new HashSet<>());
+        }
         // 前置检查（异步注册拦截）
         return KPivotT.failAsync(getClass(), RUNNING).compose(nil ->
             HFn.<Set<HArk>, Set<HArk>, Set<HArk>>combineT(

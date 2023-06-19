@@ -100,8 +100,8 @@ public interface VMessage {
 
     // ---------- io.vertx.up.uca.options.Visitor
     interface Visitor {
-        String V_BEFORE = "( node = {0}, type = {1} ) before validation is {2}.";
-        String V_AFTER = "( node = {0}, type = {1} ) filtered configuration port set = {2}.";
+        String V_BEFORE = "( node = {0}, type = {1} ) Before Validation {2}.";
+        String V_AFTER = "Server = {1}, Port = {2}, Configuration = {0}.";
     }
 
     // ---------- C: io.vertx.rx.web.anima.Verticles

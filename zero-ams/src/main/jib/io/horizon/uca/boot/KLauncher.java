@@ -69,11 +69,14 @@ public class KLauncher<T> {
          * </code></pre>
          */
         this.launcher.start(on, server -> {
-            final CONFIG configuration = (CONFIG) on.store();
 
-            // Pre 1：针对容器初始化完成之后的第一步初始化流程
-            this.configurer.preExecute(server, configuration);
+            final CONFIG configuration = Objects.isNull(on) ? null : (CONFIG) on.store();
 
+            if (Objects.isNull(configuration)) {
+
+                // Pre 1：针对容器初始化完成之后的第一步初始化流程
+                this.configurer.preExecute(server, configuration);
+            }
 
             /**
              * 此处是穿透效果，直接外层调用

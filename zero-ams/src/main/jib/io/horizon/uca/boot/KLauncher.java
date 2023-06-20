@@ -71,7 +71,6 @@ public class KLauncher<T> {
         this.launcher.start(on, server -> {
 
             final CONFIG configuration = Objects.isNull(on) ? null : (CONFIG) on.store();
-
             if (Objects.nonNull(configuration)) {
 
                 // Pre 1：针对容器初始化完成之后的第一步初始化流程

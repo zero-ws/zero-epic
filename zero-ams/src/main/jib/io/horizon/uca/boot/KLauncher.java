@@ -72,7 +72,7 @@ public class KLauncher<T> {
 
             final CONFIG configuration = Objects.isNull(on) ? null : (CONFIG) on.store();
 
-            if (Objects.isNull(configuration)) {
+            if (Objects.nonNull(configuration)) {
 
                 // Pre 1：针对容器初始化完成之后的第一步初始化流程
                 this.configurer.preExecute(server, configuration);

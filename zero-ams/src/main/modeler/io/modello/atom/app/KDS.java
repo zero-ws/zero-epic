@@ -1,5 +1,6 @@
 package io.modello.atom.app;
 
+import io.horizon.eon.VValue;
 import io.horizon.eon.em.EmDS;
 
 import java.util.Collection;
@@ -16,7 +17,7 @@ import java.util.function.Function;
 public class KDS<T extends KDatabase> implements Function<KDS<T>, KDS<T>> {
 
     private final ConcurrentMap<EmDS.Stored, T> database = new ConcurrentHashMap<>();
-    private final Set<T> databaseSet = new LinkedHashSet<>();
+    private final Set<T> databaseDynamics = new LinkedHashSet<>();
 
     public T database() {
         return this.database.getOrDefault(EmDS.Stored.PRIMARY, null);
@@ -34,16 +35,16 @@ public class KDS<T extends KDatabase> implements Function<KDS<T>, KDS<T>> {
         if (Objects.nonNull(database)) {
             this.database.put(store, database);
             if (EmDS.Stored.DYNAMIC == store) {
-                this.databaseSet.add(database);
+                this.databaseDynamics.add(database);
             }
         }
         return this;
     }
 
     public KDS<T> registry(final Collection<T> databases) {
-        this.databaseSet.clear();
-        this.databaseSet.addAll(databases);
-        if (this.database.isEmpty()) {
+        this.databaseDynamics.clear();
+        this.databaseDynamics.addAll(databases);
+        if (VValue.ONE == databases.size()) {
             databases.stream().findFirst()
                 .ifPresent(dynamic -> this.database.put(EmDS.Stored.DYNAMIC, dynamic));
         }
@@ -51,7 +52,7 @@ public class KDS<T extends KDatabase> implements Function<KDS<T>, KDS<T>> {
     }
 
     public Set<T> dynamicSet() {
-        return this.databaseSet;
+        return this.databaseDynamics;
     }
 
     public T dynamic() {
@@ -62,7 +63,7 @@ public class KDS<T extends KDatabase> implements Function<KDS<T>, KDS<T>> {
     public KDS<T> apply(final KDS<T> target) {
         if (Objects.nonNull(target)) {
             this.database.putAll(target.database);
-            this.databaseSet.addAll(target.databaseSet);
+            this.databaseDynamics.addAll(target.databaseDynamics);
         }
         return this;
     }

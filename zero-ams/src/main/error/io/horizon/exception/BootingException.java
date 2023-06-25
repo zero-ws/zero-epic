@@ -1,8 +1,9 @@
 package io.horizon.exception;
 
+import io.horizon.atom.program.KFailure;
 import io.horizon.eon.VString;
 import io.horizon.eon.error.ErrorMessage;
-import io.horizon.util.HUt;
+import io.horizon.spi.HorizonIo;
 
 /**
  * 和资源文件绑定的启动异常类，通常在容器启动中抛出该信息
@@ -10,13 +11,15 @@ import io.horizon.util.HUt;
  * 2. 容器启动
  */
 public abstract class BootingException extends AbstractException {
-    private final String message;
-    private final Class<?> target;
+
+    private final KFailure failure;
 
     public BootingException(final Class<?> clazz, final Object... args) {
         super(VString.EMPTY);
-        this.target = clazz;
-        this.message = HUt.fromError(ErrorMessage.EXCEPTION_BOOTING, clazz, this.getCode(), args); // Errors.format(clazz, this.getCode(), args);
+        // KFailure 构造
+        this.failure = KFailure.of(clazz, args)         // caller, params
+            .bind(this.getCode())                       // error code
+            .bind(ErrorMessage.EXCEPTION_BOOTING);      // [ ERR{} ] ( {} ) Booting Error: {}
     }
 
     @Override
@@ -24,11 +27,17 @@ public abstract class BootingException extends AbstractException {
 
     @Override
     public String getMessage() {
-        return this.message;
+        return this.failure.message();
     }
 
     @Override
     public Class<?> caller() {
-        return this.target;
+        return this.failure.caller();
+    }
+
+    @Override
+    public BootingException io(final HorizonIo io) {
+        this.failure.bind(io);
+        return this;
     }
 }

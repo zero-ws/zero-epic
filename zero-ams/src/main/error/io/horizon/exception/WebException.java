@@ -1,46 +1,42 @@
 package io.horizon.exception;
 
+import io.horizon.atom.program.KFailure;
 import io.horizon.eon.VName;
 import io.horizon.eon.VString;
 import io.horizon.eon.em.web.HttpStatusCode;
 import io.horizon.eon.error.ErrorMessage;
-import io.horizon.fn.HFn;
+import io.horizon.spi.HorizonIo;
 import io.horizon.util.HUt;
 import io.vertx.core.json.JsonObject;
 
-import java.util.Objects;
 import java.util.UUID;
 
 /**
  *
  */
 public abstract class WebException extends AbstractException {
-    private final String message;
     private final UUID id;
-    private final Class<?> caller;
+    private final KFailure failure;
     protected HttpStatusCode status;
-    private transient Object[] params;
-    private String readable;
 
     public WebException(final String message) {
         super(message);
-        this.message = message;
         this.status = HttpStatusCode.BAD_REQUEST;
-        this.caller = null;      // Target;
-        // readable 构造时设置
-        this.readable = HUt.fromReadable(this.getCode());
         this.id = UUID.randomUUID();
+
+        this.failure = KFailure.of(null)   // caller = null, params = null
+            .bind(this.getCode())                // error code
+            .message(message);                   // message bind
     }
 
     public WebException(final Class<?> clazz, final Object... args) {
         super(VString.EMPTY);
-        this.message = HUt.fromError(ErrorMessage.EXCEPTION_WEB, clazz, this.getCode(), args);
-        this.params = args;
         this.status = HttpStatusCode.BAD_REQUEST;
-        this.caller = clazz;     // Target;
-        // readable 构造时设置
-        this.readable = HUt.fromReadable(this.getCode(), args);
         this.id = UUID.randomUUID();
+        this.failure = KFailure.of(clazz, args)     // caller, params
+            .bind(this.getCode())                   // error code
+            .bind(ErrorMessage.EXCEPTION_WEB);      // [ ERR{} ] ( {} ) Web Error: {}
+        // readable 构造时设置
     }
 
     @Override
@@ -48,7 +44,7 @@ public abstract class WebException extends AbstractException {
 
     @Override
     public String getMessage() {
-        return this.message;
+        return this.failure.message();
     }
 
     public HttpStatusCode getStatus() {
@@ -58,7 +54,7 @@ public abstract class WebException extends AbstractException {
 
     @Override
     public Class<?> caller() {
-        return this.caller;
+        return this.failure.caller();
     }
 
     /**
@@ -70,17 +66,11 @@ public abstract class WebException extends AbstractException {
     }
 
     public String readable() {
-        return this.readable;
+        return this.failure.readable();
     }
 
     public void readable(final String readable) {
-        HFn.runAt(() -> {
-            if (Objects.isNull(this.params)) {
-                this.readable = readable;
-            } else {
-                this.readable = HUt.fromMessage(readable, this.params);
-            }
-        }, readable);
+        this.failure.readable(readable);
     }
 
     /**
@@ -101,8 +91,9 @@ public abstract class WebException extends AbstractException {
         data.put(VName.ID, this.getId().toString());
         data.put(VName.CODE, this.getCode());
         data.put(VName.MESSAGE, this.getMessage());
-        if (HUt.isNotNil(this.readable)) {
-            data.put(VName.INFO, this.readable);
+        final String readable = this.readable();
+        if (HUt.isNotNil(readable)) {
+            data.put(VName.INFO, readable);
         }
         return data;
     }
@@ -114,5 +105,12 @@ public abstract class WebException extends AbstractException {
      */
     public UUID getId() {
         return this.id;
+    }
+
+
+    @Override
+    public WebException io(final HorizonIo io) {
+        this.failure.bind(io);
+        return this;
     }
 }

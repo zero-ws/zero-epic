@@ -1,7 +1,9 @@
 package io.horizon.exception;
 
+import io.horizon.atom.program.KFailure;
+import io.horizon.eon.VString;
 import io.horizon.eon.error.ErrorMessage;
-import io.horizon.util.HUt;
+import io.horizon.spi.HorizonIo;
 
 /**
  * 和资源文件绑定的检查异常类，通常在编程过程中抛出该异常
@@ -10,15 +12,24 @@ import io.horizon.util.HUt;
  */
 public abstract class DaemonException extends ProgramException {
 
-    private final String message;
+    private final KFailure failure;
 
     public DaemonException(final Class<?> clazz, final Object... args) {
-        super(null);
-        this.message = HUt.fromError(ErrorMessage.EXCEPTION_DAEMON, clazz, this.getCode(), args);
+        super(VString.EMPTY);
+        // KFailure 构造
+        this.failure = KFailure.of(clazz, args)             // caller, params
+            .bind(this.getCode())                           // error code
+            .bind(ErrorMessage.EXCEPTION_DAEMON);           // [ ERR{} ] ( {} ) Daemon Error: {}
     }
 
     @Override
     public String getMessage() {
-        return this.message;
+        return this.failure.message();
+    }
+
+    @Override
+    public DaemonException io(final HorizonIo io) {
+        this.failure.bind(io);
+        return this;
     }
 }

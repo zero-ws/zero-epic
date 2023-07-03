@@ -27,6 +27,9 @@ public class LocalFs implements HFS {
 
     @Override
     public boolean rm(final String filename) {
+        if (!HUt.ioExist(filename)) {
+            return true;
+        }
         final File file = HUt.ioFile(filename);
         if (Objects.nonNull(file) && file.exists()) {
             LogAs.Fs.info(this.getClass(), VMessage.HFS.IO_CMD_RM, file.getAbsolutePath());

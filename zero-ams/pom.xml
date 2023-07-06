@@ -128,18 +128,11 @@
 
                             com.fasterxml.*,
                             org.yaml.*,
-
-                            org.slf4j.*,
-                            ch.qos.logback.*
                         </Export-Package>
                         <Import-Package>
-                            io.netty.channel.epoll;resolution:=optional
+                            io.netty.channel.epoll;resolution:=optional,
+                            org.slf4j.*,
                         </Import-Package>
-                        <Embed-Dependency>
-                            slf4j-api;groupId=org.slf4j;artifactId=slf4j-api;inline=true,
-                            logback-classic;groupId=ch.qos.logback;artifactId=logback-classic;inline=true
-                        </Embed-Dependency>
-                        <Embed-Transitive>true</Embed-Transitive>
                         <Export-Service>
                             io.horizon.spi.boot.HEquip,
                             io.horizon.spi.cloud.HED,

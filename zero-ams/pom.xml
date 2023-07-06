@@ -107,32 +107,62 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
+                        <!--
+                        在 JDK 9 之后，OSGI的打包会引起部分警告信息：
+                        [WARNING] Bundle io.zerows:zero-ams:bundle:1.0-SNAPSHOT :
+                        Classes found in the wrong directory: {META-INF/versions/9/module-info.class=module-info.class}
+                        此错误信息在编译的时候不会有问题，但在IDEA识别时会阻拦IDEA的运行，如直接导致IDEA中无法启动应用，因此，
+                        需要在打包的时候忽略此错误信息，具体配置如下：
+                        -->
                         <_fixupmessages>
                             "Classes found in the wrong directory";restrict:=error;is:=ignore
                         </_fixupmessages>
-                        <!-- 导出 Vert.x 相关的包 -->
+
+
                         <Export-Package>
-                            <!-- Zero -->
+                            <!--
+                            Zero Agreed Metadata Specification专用导出部分，在新版的Zero框架中，从底层开始引入OSGI机制，
+                            所以包含如下包：
+                            - io.horizon:   核心库，系统级规范
+                            - io.modello:   建模规范
+                            - io.macrocosm: 云原生规范
+                            - io.zerows:    第三方扩展库，如Jackson / Vertx等
+                            -->
                             io.horizon.*,
                             io.modello.*,
                             io.zerows.*,
                             io.macrocosm.*,
 
-                            <!--
-                               Vertx
-                               Netty
-                               Jackson
-                            -->
-                            io.vertx.*,
-                            io.netty.*,
 
-                            com.fasterxml.*,
-                            org.yaml.*,
+                            <!--
+                            第三方依赖库的归口统一导出，若有了此导出后，系统后续导出则变得没有想象中那么重要
+                            - io.vertx:             Vertx框架
+                            - io.netty:             Netty框架
+                            - com.fasterxml:        Jackson依赖库
+                            - org.yaml:             SnakeYaml依赖库
+                            - org.slf4j:            Slf4j抽象日志接口
+                            第三方库策略一律采取 merge-first 以防止包冲突
+                            -->
+                            io.vertx.*;-split-package:=merge-first,
+                            io.netty.*;-split-package:=merge-first,
+                            com.fasterxml.*;-split-package:=merge-first,
+                            org.yaml.*;-split-package:=merge-first,
+                            org.slf4j.*;-split-package:=merge-first,
                         </Export-Package>
+
+
+                        <!--
+                        此部分内容为了防止 ClassNotFound 的错误，需要将部分包导入到系统中
+                        -->
                         <Import-Package>
                             io.netty.channel.epoll;resolution:=optional,
                             org.slf4j.*,
                         </Import-Package>
+
+
+                        <!--
+                        将 SPI 转换到 Service 中一起导出，以便于在运行时可以直接使用
+                        -->
                         <Export-Service>
                             io.horizon.spi.boot.HEquip,
                             io.horizon.spi.cloud.HED,

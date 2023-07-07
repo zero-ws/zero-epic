@@ -143,11 +143,11 @@
                             - org.slf4j:            Slf4j抽象日志接口
                             第三方库策略一律采取 merge-first 以防止包冲突
                             -->
-                            io.vertx.*;-split-package:=merge-first,
-                            io.netty.*;-split-package:=merge-first,
-                            com.fasterxml.*;-split-package:=merge-first,
-                            org.yaml.*;-split-package:=merge-first,
-                            org.slf4j.*;-split-package:=merge-first,
+                            io.vertx.*,
+                            io.netty.*,
+                            com.fasterxml.*,
+                            org.yaml.*,
+                            org.slf4j.*,
                         </Export-Package>
 
 

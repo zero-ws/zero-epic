@@ -119,19 +119,28 @@ class _Out extends _Jvm {
     }
 
     /**
-     * New structure for exception out ( RuntimeException )
-     * UpException | WebException supported
-     * --
-     * outUp + outWeb
+     * 条件满足后抛出对应异常 {@link BootingException} 和 {@link WebException}
      *
-     * @param condition The condition for throwing
-     * @param clazz     The exception clazz here ( because all the exception class first argument type is Class<?>, it means
-     *                  you can initialize logger inner this method instead of input
-     * @param args      dynamic objects for exception
+     * @param condition 满足抛异常的条件
+     * @param clazz     异常类
+     * @param args      反射参数
      */
     public static void out(final boolean condition, final Class<?> clazz, final Object... args) {
         if (condition) {
             HThrow.out(clazz, args);
+        }
+    }
+
+    /**
+     * 条件满足后抛出对应异常 {@link io.horizon.exception.InternalException}
+     *
+     * @param condition 满足抛异常的条件
+     * @param clazz     异常类
+     * @param args      反射参数
+     */
+    public static void outInternal(final boolean condition, final Class<?> clazz, final Object... args) {
+        if (condition) {
+            HThrow.outInternal(clazz, args);
         }
     }
 

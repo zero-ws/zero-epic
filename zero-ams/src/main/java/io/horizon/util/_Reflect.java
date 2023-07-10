@@ -1,7 +1,10 @@
 package io.horizon.util;
 
+import io.vertx.core.Future;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
 /**
@@ -324,5 +327,47 @@ class _Reflect extends _Random {
      */
     public static <T> T field(final Class<?> interfaceCls, final String name) {
         return HInstance.getStatic(interfaceCls, name);
+    }
+
+    /**
+     * 实例方法调用
+     *
+     * @param instance 实例
+     * @param name     方法名
+     * @param args     参数
+     * @param <T>      返回值类型
+     *
+     * @return 返回值
+     */
+    public static <T> T invoke(final Object instance, final String name, final Object... args) {
+        return HInvoke.invokeObject(instance, name, args);
+    }
+
+    /**
+     * 静态方法调用
+     *
+     * @param clazz 类
+     * @param name  方法名
+     * @param args  参数
+     * @param <T>   返回值类型
+     *
+     * @return 返回值
+     */
+    public static <T> T invokeStatic(final Class<?> clazz, final String name, final Object... args) {
+        return HInvoke.invokeStatic(clazz, name, args);
+    }
+
+    /**
+     * 实例方法调用（异步版本）
+     *
+     * @param instance 实例
+     * @param method   方法
+     * @param args     参数
+     * @param <T>      T
+     *
+     * @return Future
+     */
+    public static <T> Future<T> invokeAsync(final Object instance, final Method method, final Object... args) {
+        return HInvoke.invokeAsync(instance, method, args);
     }
 }

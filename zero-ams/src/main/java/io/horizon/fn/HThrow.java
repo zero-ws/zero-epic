@@ -1,6 +1,7 @@
 package io.horizon.fn;
 
 import io.horizon.exception.BootingException;
+import io.horizon.exception.InternalException;
 import io.horizon.exception.ProgramException;
 import io.horizon.exception.WebException;
 import io.horizon.exception.web._412ArgumentNullException;
@@ -65,6 +66,16 @@ class HThrow {
             }
         } else if (WebException.class == errorCls.getSuperclass()) {
             final WebException error = HUt.instance(errorCls, args);
+            if (null != error) {
+                callerAt(error::caller, error::getMessage);
+                throw error;
+            }
+        }
+    }
+
+    static void outInternal(final Class<?> errorCls, final Object... args) {
+        if (InternalException.class == errorCls.getSuperclass()) {
+            final InternalException error = HUt.instance(errorCls, args);
             if (null != error) {
                 callerAt(error::caller, error::getMessage);
                 throw error;

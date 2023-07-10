@@ -26,6 +26,8 @@ public enum ErrorCode {
         "The input cache mode should not be null, please check your code")                 // CcModeNullException
     , _11010(-11010,
         "The META-INF/services/io.horizon.spi.BootIo component is null, please configure.") // BootIoNullException
+    , _11011(-11011,
+        "The Reflection invoking does not satisfy the pre-condition. Method = {}")          // InvokingSpecException
     ;
     private final String message;
     private final int code;

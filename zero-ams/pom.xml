@@ -93,6 +93,10 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-buffer</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec-http</artifactId>
+        </dependency>
         <!-- Runtime for Testing -->
         <dependency>
             <groupId>org.yaml</groupId>
@@ -155,9 +159,17 @@
                         此部分内容为了防止 ClassNotFound 的错误，需要将部分包导入到系统中
                         -->
                         <Import-Package>
-                            io.netty.channel.epoll;resolution:=optional,
                             org.slf4j.*,
                         </Import-Package>
+
+
+                        <!--
+                        动态加载部分，此部分内容为了防止 ClassNotFound 的错误
+                        -->
+                        <DynamicImport-Package>
+                            io.netty.channel.epoll.*,
+                            io.netty.handler.codec.http.*
+                        </DynamicImport-Package>
 
 
                         <!--

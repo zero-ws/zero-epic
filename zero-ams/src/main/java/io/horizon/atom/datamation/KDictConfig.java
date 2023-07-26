@@ -10,24 +10,45 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-/*
- * 1) Tabular related data
- * 2）Assist related data
- * 3）Category related data
- * Configuration for three critical data to define rule here.
- * Rules definition here ( Multi rule definition )
- * [
+/**
+ * 「字典定义」（批量）完整字典配置专用对象，此对象存储了 Zero Extension 中常用的几种字典的基础配置信息 {@link io.horizon.eon.em.EmDict.Type}
+ * <pre><code>
+ *     1. CATEGORY：对应系统中 X_CATEGORY 表中的基础数据信息（树型字典）
+ *     2. TABULAR：对应系统中 X_TABULAR 表中的基础信息（列表字典）
+ *     3. ASSIST：可关联任意第三方字段信息，这些字典信息回搭配字典数据读取器来实现数据加载
+ *                - 组件 {@see DictionaryPlugin}
+ *     4. DAO：直连字典，此处直接绑定了 DAO 类
+ *     5. NONE：默认值（禁用字典时可使用此选项）
+ * </code></pre>
+ * 本类主要用于定义全字典配置，解析当前通道、接口专用的所有字典配置（包含多条规则）
+ * <pre><code class="json">
+ *     字典提供者（List结构），关联类型 {@link KDictSource}
+ *     [
+ *         {
+ *             "source":"CATEGORY / TABULAR / ASSIST，指定字典类型",
+ *             "types": [
+ *                 "CATEGORY / TABULAR字典专用，可提取不同的 type = ? 的字典数据"
+ *             ],
+ *             "key": "字典名称，如 resource.companys",
+ *             "component": "（扩展）当您想要扩展整个字典模块时，可采用第三方扩展组件",
+ *             "componentConfig": {
+ *                 "...": "组件配置"
+ *             }
+ *         }
+ *     ]
+ *
+ *     字典消费者（Map结构），关联类型 {@link KDictUse}
  *     {
- *         "source":"CATEGORY / TABULAR / ASSIST",
- *         "types": [
- *              "xxx": "xxx"
- *         ],
- *         "key": "assistKey",
- *         "sourceComponent": "class",
- *         "filters": {
+ *         "field1": {
+ *             "source": "消费的字典，对应上半段的 key 定义，如 resource.companys",
+ *             "in": "显示端属性名，如 name",
+ *             "out": "存储端属性名，如 key",
  *         }
  *     }
- * ]
+ *
+ * </code></pre>
+ *
+ * @author <a href="http://www.origin-x.cn">Lang</a>
  */
 public class KDictConfig implements Serializable {
 

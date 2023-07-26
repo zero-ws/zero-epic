@@ -12,9 +12,25 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
-/*
- * Content for
- * String = String
+/**
+ * 「字段双向映射」
+ * 此类用于双向字段映射，可在两个字典中进行相互转换
+ * <pre><code>
+ *     {
+ *         "from field": "to field"
+ *     }
+ *     最终构造结构如
+ *     vector:      from        =       to
+ *     revert:      to          =       from
+ *               vectorType             toType
+ * </code></pre>
+ * 由此，字典本身可在不同的属性上不断转换
+ * <pre><code>
+ *     1. vectorType为主，从 from -> to    ( 存储在 vector )
+ *     2. revertType为主，从 to -> from    ( 存储在 revert )
+ * </code></pre>
+ *
+ * @author <a href="http://www.origin-x.cn">Lang</a>
  */
 public class KMapping implements Serializable {
     private final ConcurrentMap<String, String> vector =
@@ -152,7 +168,7 @@ public class KMapping implements Serializable {
 
     @Override
     public String toString() {
-        return "DualItem{" +
+        return "KMapping{" +
             "vector=" + this.vector +
             ", revert=" + this.revert +
             '}';

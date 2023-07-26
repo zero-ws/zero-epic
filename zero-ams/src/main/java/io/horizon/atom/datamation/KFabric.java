@@ -11,30 +11,19 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * ## DictFabric
- * Combiner of Dict
- * 1. `ConcurrentMap<String, Epsilon>` map stored field -> dict
- * 2. `ConcurrentMap<String, JsonArray>` dictionary data in current channel
- * 3. DualMapping Stored mapping ( from -> to )
- * 4. The `fabric` do not support mapping converting future( Important )
+ * 「完整字典对象」此对象定义了完整的字典对象，其中包括
+ * <pre><code>
+ *     1. 字典存储器
+ *     2. 字典源定义
+ *     3. 字典消费定义
+ *     4. 字典翻译器
+ * </code></pre>
+ *
+ * @author <a href="http://www.origin-x.cn">Lang</a>
  */
 public class KFabric {
 
     private static final Annal LOGGER = Annal.get(KFabric.class);
-    /*
-     * From field = DictEpsilon
-     * This map stored consume information of current usage, the format is as following
-     * {
-     *     "field": {
-     *         "source": "...",
-     *         "in": "...",
-     *         "out": "..."
-     *     }
-     * }
-     * -- field: The field that defined in final input record
-     * -- source: The dict name that has been mapped to `dictData` variable here
-     * -- in/out: The translation direction that defined.
-     */
     private final ConcurrentMap<String, KDictUse> epsilonMap
         = new ConcurrentHashMap<>();
     /*

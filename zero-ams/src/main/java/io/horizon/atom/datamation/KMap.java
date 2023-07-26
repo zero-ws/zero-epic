@@ -11,32 +11,59 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-/*
- * [Data Structure]
- * 1) mapping stored `from -> to`
- * 2) revert stored `to -> from`
- * This data structure will store two mappings between configuration file here.
- * It could be used in some places to process ( ----> / <---- )
+/**
+ * 「字段映射配置」
+ * 针对当前所需信息的完整字段映射定义，此定义包含了当前模型的完整定义，主要映射包括
+ * <pre><code>
+ *     1. 从 from -> to 的字段映射
+ *     2. 从 to -> from 的字段映射
+ * </code></pre>
+ * 数据结构中会将映射方向分成两部分
+ * <pre><code>
+ *     {
+ *         "field1": "to2",
+ *         "field2": "to2",
+ *         "identifier": {
+ *             "field3": "to3",
+ *             "field4": "to4"
+ *         }
+ *     }
+ *     上述抽象格式还可以写成
+ *     {
+ *         {@link KMapping},                // 根模型
+ *         "identifier": {@link KMapping},  // 子模型
+ *     }
+ * </code></pre>
+ * 职中的映射部分会根据上述数据结构不同分成两大块
+ * <pre><code>
+ *     1. 如果是 String = String 的部分，则表示它属于根节点
+ *     2. 如果是 String = {@link JsonObject} 的部分，则它属于子节点
+ * </code></pre>
  *
- * Two mapping categories:
- * A) Single Mapping: String = String
- * B) Multi Mapping: String = JsonObject
+ * @author <a href="http://www.origin-x.cn">Lang</a>
  */
 public class KMap implements Serializable {
-
-    /*
-     * Root ( Single )
-     * String = String
-     * Map ( Multi )
-     * String = JsonObject
-     */
+    /** 根节点 {@link KMapping} */
     private final KMapping root = new KMapping();
+
+    /** 子模型 identifier = {@link KMapping} */
     private final ConcurrentMap<String, KMapping> mapping =
         new ConcurrentHashMap<>();
-    /*
-     * Configured `MappingMode` and `Class<?>`
+
+    /**
+     * 作用效果，作用效果主要用于 zero-jet 中的通道定义部分
+     * <pre><code>
+     *     - NONE：不产生任何影响
+     *     - BEFORE：前置影响，在写数据库之前的映射转换
+     *     - AFTER：后置影响，在写数据库之后的映射转换
+     *     - AROUND：环绕影响，在写入数据库前后都会存在的映射转换
+     * </code></pre>
      */
     private EmAop.Effect mode = EmAop.Effect.NONE;
+
+    /**
+     * 当前配置对应的映射组件，最终对应底层的 MAPPING_COMPONENT 中的配置
+     */
     private Class<?> component;
 
     public KMap() {
@@ -181,7 +208,7 @@ public class KMap implements Serializable {
 
     @Override
     public String toString() {
-        return "DualMapping{" +
+        return "KMap{" +
             "root=" + this.root +
             ", mapping=" + this.mapping +
             ", mode=" + this.mode +

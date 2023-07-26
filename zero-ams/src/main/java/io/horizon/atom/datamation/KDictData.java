@@ -9,12 +9,6 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-/**
- * @author <a href="http://www.origin-x.cn">Lang</a>
- * This class is for store dict data mapping
- * 1. Dict Data Store
- * 2. Dict Data Update ( Checking )
- */
 class KDictData {
     private static final Annal LOGGER = Annal.get(KDictData.class);
     private final ConcurrentMap<String, JsonArray> dictData

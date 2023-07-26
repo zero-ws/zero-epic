@@ -11,7 +11,18 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * New Structure for configuration fixed
+ * 「切面定义」
+ * 此部分内容为切面定义，您可基于配置做相关切面定义，此切面定义基于两种模式
+ * <pre><code>
+ *     1. 基于配置的切面定义
+ *     2. 直接在开发代码中执行切面定义
+ * </code></pre>
+ * 配置化切面定义的原因在于使用 zero-crud 时可让您的执行流程更加细粒度，可扩展的点也变多，您可以在不同的切面中执行不同的逻辑，而支持AOP的模式也分三种
+ * <pre><code>
+ *     BEFORE：只在核心流程之前执行
+ *     AFTER：只在核心流程之后执行
+ *     AROUND：前后执行
+ * </code></pre>
  *
  * @author <a href="http://www.origin-x.cn">Lang</a>
  */

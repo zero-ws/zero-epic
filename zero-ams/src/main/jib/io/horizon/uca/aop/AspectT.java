@@ -7,6 +7,7 @@ import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
+import javax.xml.crypto.dsig.keyinfo.KeyName;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -98,7 +99,7 @@ class AspectT {
                 // Run After
                 final After after = (After) plugin;
                 if (input instanceof JsonObject) {
-                    return after.afterAsync((JsonObject) input, config)
+                    return after.afterAsync( newInput(input), config)
                         .compose(json -> Future.succeededFuture((T) json));
                 } else {
                     return after.afterAsync((JsonArray) input, config)
@@ -125,5 +126,9 @@ class AspectT {
             }
         }).filter(Objects::nonNull).forEach(executor::add);
         return executor;
+    }
+    private JsonObject newInput(Object input) {
+        JsonObject copyInput = ((JsonObject) input).copy();
+        return copyInput.mergeIn(((JsonObject) input).getJsonObject("__input"));
     }
 }

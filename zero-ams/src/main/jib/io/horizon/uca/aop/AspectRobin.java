@@ -5,6 +5,7 @@ import io.horizon.util.HUt;
 import io.modello.eon.configure.VPC;
 import io.vertx.core.json.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -180,6 +181,10 @@ public class AspectRobin {
         // 深度检索
         final String forkKey = this.config.forkKey(input);
         final AspectComponent component = this.seekComponent(forkKey);
+        // 若 component = null 则直接返回
+        if (Objects.isNull(component)) {
+            return new ArrayList<>();
+        }
         return executor.apply(component);
     }
 

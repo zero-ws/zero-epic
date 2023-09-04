@@ -243,6 +243,8 @@ public interface VName {
 
     String LINKAGE = "linkage";                  /* XLinkage instance */
     String QUERY = "query";                      /* XLinkage query */
+    String LINKED = "linked";                    /* `linked` instance */
+    String FINISHED = "finished";                /* `finished` field */
 
     // Store Path/Root
     String STORE = "store";                      /* File Management, Store */

@@ -225,6 +225,7 @@ public interface VName {
     String INDENT = "indent";                    /* indent spec number */
 
     String ACCESS_TOKEN = "access_token";        /* token cv from `jwt` to `access_token` */
+    String TOKEN = "token";                      /* token from `jwt` */
 
     String UNIQUE = "unique";                    /* Workflow: unique record */
     String FLAG = "flag";                        /* Workflow: flag type of record */

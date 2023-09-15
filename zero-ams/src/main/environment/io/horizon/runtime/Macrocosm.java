@@ -52,10 +52,12 @@ public interface Macrocosm {
      * - Z_DBH_PORT / Z_DBH_HOST / Z_DBH_INSTANCE
      *   历史数据库专用环境变量，未设置同标准
      */
+    // 集成专用 ---------------------------------------
+    String DOC_SECRET = "Z_DOC_SECRET";                 // 文档服务器的 secret（生成token）
+    String SIS_STORE = "Z_SIS_STORE";                   // 集成服务中的存储
     // 「Production」生产专用 ---------------------------------------
     String HED_COMPONENT = "Z_HED";                     // 外置 HED 模块
     String HED_ENABLED = "Z_HED_ENABLED";               // 是否打开 HED 模块
-    String SIS_STORE = "Z_SIS_STORE";                   // 集成服务中的存储
 
     String CACHE_UI = "Z_CACHE_UI";                     // UI缓存
     String CACHE_ADMIT = "Z_CACHE_ADMIT";               // 安全管理缓存

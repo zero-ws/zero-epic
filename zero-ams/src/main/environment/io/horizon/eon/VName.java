@@ -249,6 +249,7 @@ public interface VName {
 
     // Store Path/Root
     String STORE = "store";                      /* File Management, Store */
+    String STORED = "stored";
     String STORE_ROOT = "storeRoot";             /* File Management, store root */
     String STORE_PATH = "storePath";             /* File Management, store path for directory / attachment */
     String STORE_PARENT = "storeParent";         /* File Management, store parent */

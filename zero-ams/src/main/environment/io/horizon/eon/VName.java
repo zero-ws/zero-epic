@@ -61,6 +61,7 @@ public interface VName {
     String DYNAMIC = "dynamic";                  /* View security of field for dynamic view name */
     String VIEW = "view";                        /* View security of view name */
     String PROFILE = "profile";                  /* */
+    String PROCESS = "process";                  /* */
     String PREFIX = "prefix";
     String POSITION = "position";                /* View security of view position */
     String MODULE = "module";                    /* View sub-module picking up */

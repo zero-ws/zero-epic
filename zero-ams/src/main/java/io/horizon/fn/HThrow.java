@@ -21,6 +21,7 @@ import java.util.function.Supplier;
  */
 class HThrow {
 
+    @SuppressWarnings("all")
     static <T> Function<Throwable, T> outAsync(final Supplier<T> supplier) {
         return error -> {
             if (Objects.nonNull(error)) {

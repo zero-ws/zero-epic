@@ -1,5 +1,9 @@
 package io.horizon.spi.modeler;
 
+import io.horizon.eon.VString;
+
+import java.util.Objects;
+
 /**
  * 针对模型所属名空间的专用SPI，分成两级操作
  * <pre><code>
@@ -30,5 +34,8 @@ public interface AtomNs {
      *
      * @return 应用名空间
      */
-    String ns(String appName, String identifier);
+    default String ns(final String appName, final String identifier) {
+        Objects.requireNonNull(identifier);
+        return this.ns(appName) + VString.DASH + identifier;
+    }
 }

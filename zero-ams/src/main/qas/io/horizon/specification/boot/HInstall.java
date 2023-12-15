@@ -12,6 +12,21 @@ package io.horizon.specification.boot;
  *     - unregister：注销模块
  *     - cleanup: 清除数据、验证
  * </code></pre>
+ * OSGI 中的 Bundle 的生命周期如下：
+ * <pre><code>
+ *               |
+ *               v
+ *     <----- INSTALLED
+ *     |         |
+ *     |         |
+ *     |         v
+ *     |      RESOLVED --> STARTING --> ACTIVE --> STOPPING
+ *     |         |   ^                                 |
+ *     |         |   |                                 |
+ *     |         |   ----------------------------------|
+ *     |         v
+ *     |----> UNINSTALLED
+ * </code></pre>
  *
  * @author lang : 2023-05-25
  */

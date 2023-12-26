@@ -12,7 +12,7 @@ public interface VMessage {
     }
 
     interface Extractor {
-        // ------------ io.vertx.up.container.config.Extractor
+        // ------------ io.vertx.up.stored.config.Extractor
         String JOB_IGNORE = "[ Job ] The class {0} annotated with @Job will be ignored because there is no @On method defined.";
 
     }
@@ -105,7 +105,7 @@ public interface VMessage {
     }
 
     // ---------- C: io.vertx.rx.web.anima.Verticles
-    // ---------- C: io.vertx.up.container.anima.Verticles
+    // ---------- C: io.vertx.up.stored.anima.Verticles
     interface Verticle {
         String END = "( {3} ) The bottle {0} has been deployed " +
             "{1} instances successfully. id = {2}.";
@@ -130,14 +130,14 @@ public interface VMessage {
 
     }
 
-    // ---------- io.vertx.up.container.anima.Scatter
+    // ---------- io.vertx.up.stored.anima.Scatter
     interface Scatter {
         String CODEX = "( {0} Rules ) Zero system scanned the folder /codex/ " +
             "to pickup {0} rule definition files.";
 
     }
 
-    // ---------- io.vertx.up.container.origin.Inquirer
+    // ---------- io.vertx.up.stored.origin.Inquirer
     interface Inquirer {
         String HQAS = "( {0} QaS ) The Zero system has found " +
             "{1} points of @QaS.";

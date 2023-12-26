@@ -168,7 +168,7 @@ public interface VWeb {
              * <pre><code>
              *     - init/oob/cab/component
              *       Page的UI配置
-             *     - init/oob/cab/container
+             *     - init/oob/cab/stored
              *       Layout（Container）容器的配置
              * </code></pre>
              */
@@ -258,7 +258,7 @@ public interface VWeb {
 
             interface cab {
                 String COMPONENT = CAB + "/component";
-                String CONTAINER = CAB + "container";
+                String CONTAINER = CAB + "stored";
             }
         }
     }

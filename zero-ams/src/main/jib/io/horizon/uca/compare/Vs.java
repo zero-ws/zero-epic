@@ -59,7 +59,7 @@ public class Vs implements Serializable {
 
     private Vs(final ConcurrentMap<String, HMetaField> mapType) {
         /*
-         * this reference following rules
+         * this stored following rules
          * - mapType: stored current field = type
          * - mapSubType: when current field is ( JsonObject / JsonArray ), complex
          *   the mapSubType stored ( field = HTField ) and here HTField is complex type

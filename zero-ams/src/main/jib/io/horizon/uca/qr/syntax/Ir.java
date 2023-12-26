@@ -81,7 +81,7 @@ public interface Ir {
      *
      * @param data {@link io.vertx.core.json.JsonObject} json literal
      *
-     * @return {@link Ir} reference. ( simple criteria or qtree automatically )
+     * @return {@link Ir} stored. ( simple criteria or qtree automatically )
      */
     static Ir create(final JsonObject data) {
         return new IrQr(data);

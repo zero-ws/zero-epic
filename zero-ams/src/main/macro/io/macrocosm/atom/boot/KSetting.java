@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentMap;
  * 此部分底层还可以走一个特殊的 {@link io.horizon.specification.storage.HStore}，然后从 HStore
  * 中提取配置数据部分，这样可以实现配置数据的存储，而不是直接存储在内存中。完整的结构如：
  * <pre><code>
- *     1. container：容器配置
+ *     1. stored：容器配置
  *     2. launcher：启动器配置
  *     3. extension：Zero Extension扩展模块配置
  *     4. infix：Infix架构下的插件配置

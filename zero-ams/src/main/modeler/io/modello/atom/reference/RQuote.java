@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentMap;
  * Here are basic definition in `X_ATTRIBUTE` for calculation.
  *
  * - source: Defined `identifier` in our environment ( Static Model & Dynamic Model )
- * - sourceField: Defined `field` of critical reference or it will not be used.
+ * - sourceField: Defined `field` of critical stored or it will not be used.
  *
  * ### 2. Level
  *
@@ -105,7 +105,7 @@ public class RQuote implements Serializable {
      *
      * ```java
      * // <pre><code class="java">
-     *     final DataQuote reference = Cc.pick(() -> DataQuote.create(source), source);
+     *     final DataQuote stored = Cc.pick(() -> DataQuote.create(source), source);
      * // </code></pre>
      * ```
      *

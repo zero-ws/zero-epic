@@ -27,7 +27,7 @@ import io.horizon.util.HUt;
  *   - emf/                                  - EMF模型库
  *   - atom/                                 - zero-atom 专用模型库
  *     - meta/                                  - 定义
- *     - reference/                             - 引用
+ *     - stored/                             - 引用
  *     - rule/                                  - 规则
  * - init/                              （后端）注册初始化目录，元数据出厂设置
  *   - modeler/                              - 模型注册器
@@ -228,7 +228,7 @@ public interface VBundle {
 
         interface atom {
             String META = ATOM + "/meta";
-            String REFERENCE = ATOM + "/reference"; // 不绑定，无子配置
+            String REFERENCE = ATOM + "/stored"; // 不绑定，无子配置
             String RULE = ATOM + "/rule";   // 不绑定，无子配置
 
             static String meta_json(final String identifier) {

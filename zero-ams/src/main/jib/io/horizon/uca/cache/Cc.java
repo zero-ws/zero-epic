@@ -49,7 +49,7 @@ public interface Cc<K, V> {
     @SuppressWarnings("unchecked")
     private static <K, V> Cc<K, V> open(final CcMode mode) {
         /*
-         * Here are three default implementation of Cc, create new Cc reference and
+         * Here are three default implementation of Cc, create new Cc stored and
          * here are all situations for different usage of cache
          * 1) When the Cc created, it is often called in STATIC context
          * 2) Each Cc has three method for:
@@ -87,7 +87,7 @@ public interface Cc<K, V> {
                 /*
                  * Standard Hash Map
                  * 1) The cache key is K type
-                 * 2) The reference is V type
+                 * 2) The stored is V type
                  *
                  * k1 = reference1
                  * k2 = reference2

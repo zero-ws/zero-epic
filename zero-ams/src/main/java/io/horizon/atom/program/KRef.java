@@ -5,7 +5,7 @@ import io.vertx.core.Future;
 
 /*
  * [Data Structure]
- * Single Rxjava container for null dot that is not used in
+ * Single Rxjava stored for null dot that is not used in
  * Rxjava2.
  * For usage such as:
  *
@@ -13,7 +13,7 @@ import io.vertx.core.Future;
  * compose(xxx)
  * compose(x -> Refere.get()) // pick up
  *
- * When some steps skipped, this object is usage for reference stored
+ * When some steps skipped, this object is usage for stored stored
  */
 @SuppressWarnings("all")
 public final class KRef {

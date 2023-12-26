@@ -39,7 +39,7 @@ import java.util.stream.Stream;
  * 上述五种规则的解释如下
  * <pre><code>
  *     1. condition / conditions：这两个Json格式提供了查询条件模板，用来描述当前引用的查询条件，查询条件描述作用于如下场景：
- *        Atom A -> field1 ( reference 引用 ) -> Atom B
+ *        Atom A -> field1 ( stored 引用 ) -> Atom B
  *        A模型中的 field1 用于直接引用（关联）模型B，如果读取模型 A的记录，则需要提供查询条件，此处的 condition / conditions
  *        提供了查询参数模板（支持JEXL），系统会解析参数模板并解析参数，解析之后根据实际查询条件命中模型存储中的相关数据，最终会
  *        在当前记录中直接设置查询到的模型 B 的数据信息。

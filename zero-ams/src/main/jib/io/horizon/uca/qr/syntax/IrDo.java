@@ -13,7 +13,7 @@ import java.util.function.BiConsumer;
 public interface IrDo {
 
     /**
-     * Create new QrDo reference.
+     * Create new QrDo stored.
      *
      * @param data {@link io.vertx.core.json.JsonObject} Input json object.
      *

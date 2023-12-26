@@ -285,7 +285,7 @@ class HJson {
             return false;
         } else {
             /*
-             * Object reference
+             * Object stored
              */
             final Object value = record.getValue(field);
             return TIs.isSame(value, expected);

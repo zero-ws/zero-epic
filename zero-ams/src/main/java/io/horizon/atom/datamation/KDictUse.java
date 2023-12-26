@@ -104,7 +104,7 @@ public class KDictUse implements Serializable, TJson, TCopy<KDictUse> {
                 this.parent = json.getBoolean("parent");
             } else {
                 /*
-                 * Not configured, it means current dict should be not Self reference
+                 * Not configured, it means current dict should be not Self stored
                  */
                 this.parent = false;
             }

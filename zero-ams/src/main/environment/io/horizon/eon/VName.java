@@ -29,7 +29,7 @@ public interface VName {
     String NAMESPACE = "namespace";              /* Model definition of Multi-App environment, each application contains only one namespace */
     String IDENTIFIER = "identifier";            /* Model definition, identifier field ( Uniform identifier ) */
     String RULE_UNIQUE = "ruleUnique";           /* Model definition, ruleUnique field */
-    String RULE = "rule";                        /* Model definition, rule for source reference */
+    String RULE = "rule";                        /* Model definition, rule for source stored */
     String TABLE_NAME = "tableName";             /* Model definition, tableName field */
 
     String ENTRY = "entry";                      /* Entry checking */
@@ -171,7 +171,7 @@ public interface VName {
     String FORMAT = "format";                    /* DataFormat json configuration of uniform */
 
     String MATRIX = "matrix";                    /* Attribute Matrix for 8 dim */
-    String REFERENCE = "reference";              /* Attribute Reference for */
+    String REFERENCE = "stored";              /* Attribute Reference for */
 
     String METHOD = "method";                    /* Web: http method */
     String SESSION = "session";                  /* Web: session */

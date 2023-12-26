@@ -143,7 +143,7 @@ final class HInvoke {
                 if (Objects.isNull(returnValue)) {
                     /*
                      * Future also null
-                     * Return to Future.succeededFuture with null reference
+                     * Return to Future.succeededFuture with null stored
                      * instead of use promise here.
                      */
                     return Future.succeededFuture(null);

@@ -85,7 +85,7 @@ class HInstance {
 
             /*
              * Here must capture 'ClassNotFound` issue instead of
-             * Throw exception out for null reference returned.
+             * Throw exception out for null stored returned.
              * Specific situation usage.
              *
              * Here we could not call `clazz(name)` because of

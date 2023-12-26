@@ -23,7 +23,7 @@ import java.util.Objects;
  * Here are three critical concept:
  *
  * 1. Name: Mapped to `X_ATTRIBUTE` field `NAME`, it's the model attribute name.
- * 2. SourceField: Mapped to reference field name.
+ * 2. SourceField: Mapped to stored field name.
  * 3. JoinField: it's defined by `connect` configuration.
  *
  * ### 2. connect
@@ -42,7 +42,7 @@ import java.util.Objects;
  *
  * > One to One/Many, join json object with JoinField ( Batch Mode )
  *
- * 1. Pick data from reference data by `sourceField` name.
+ * 1. Pick data from stored data by `sourceField` name.
  * 2. Join data based on `joinField` in Batch mode, connect json object/array.
  * 3. Build new attribute key-pair `name = json object/array`.
  *
@@ -66,7 +66,7 @@ import java.util.Objects;
  *
  * > One to One/Many, join json object with JoinFields ( Batch Mode )
  *
- * 1. Pick data from reference data by `sourceField1` and `sourceField2` name.
+ * 1. Pick data from stored data by `sourceField1` and `sourceField2` name.
  * 2. Join data based on `joinField1` and `joinField2` in Batch mode, connect json object/array.
  * 3. Build new attribute key-pair `name = json object/array`.
  *
@@ -75,7 +75,7 @@ import java.util.Objects;
  *
  * ### 3. K-V
  *
- * 1. Left field is `sourceField` of reference record - `referenceField`.
+ * 1. Left field is `sourceField` of stored record - `referenceField`.
  * 2. Right field is `joinField` of current record - `currentField`.
  *
  * @author <a href="http://www.origin-x.cn">Lang</a>
@@ -115,7 +115,7 @@ public class RResult implements Serializable {
                  * 1. field = JsonObject/JsonArray, ( Mode 1 )
                  * 2. field = Elementary, ( Mode 2 )
                  *
-                 * reference key: targetGlobalId
+                 * stored key: targetGlobalId
                  * record key: globalId
                  */
                 final String currentField = connect.toString();
@@ -124,7 +124,7 @@ public class RResult implements Serializable {
                 /*
                  * Multi mode
                  *
-                 * reference key: workNumber
+                 * stored key: workNumber
                  * record key: supportANo
                  */
                 final JsonObject mapping = (JsonObject) connect;

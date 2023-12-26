@@ -27,7 +27,7 @@ public class RQuery implements Serializable {
 
     private final List<Kv<String, String>> joined = new ArrayList<>();
     /**
-     * RDao reference
+     * RDao stored
      */
     private RDao daoRef;
 

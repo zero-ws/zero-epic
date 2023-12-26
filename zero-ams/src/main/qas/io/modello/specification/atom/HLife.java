@@ -101,7 +101,7 @@ public interface HLife extends Serializable, TJson {
      *                                  - xml:          XML格式元模型
      *                                  - ecore:        EMF格式元模型
      *                                  - xlsx:         Excel格式元模型
-     * /atom/<app>/reference            JSON 链接文件专用目录
+     * /atom/<app>/stored            JSON 链接文件专用目录
      * /atom/<app>/rule                 JSON 链接文件专用目录
      * /hybrid/                         @Deprecated,    Modeler, 静态建模专用目录（保留配置）
      * /cab/                            Web, 前端配置专用目录

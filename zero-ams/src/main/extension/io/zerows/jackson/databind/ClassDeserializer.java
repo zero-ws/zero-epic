@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * Zero designed the cache pool for class that will be stored into `ConcurrentMap` ( Default implementation ),
  * It means that this class could be loaded once and usage multi-times. Here I provide default deserializer to convert
- * `java.lang.String` to `java.lang.Class<?>` to simplify the clazz look-up in container.
+ * `java.lang.String` to `java.lang.Class<?>` to simplify the clazz look-up in stored.
  *
  * Actually, there exist smart method such as {@linkplain io.horizon.util.HUt#instance Ut.instance} and
  * {@linkplain io.horizon.util.HUt#clazz Ut.clazz}, with those APIs in `Utility X`, the developer could do java

@@ -82,7 +82,7 @@ final class CArithmetic {
         right.forEach(original -> {
             /*
              * Search T in `left`
-             * If returned reference is null, means that original could be added
+             * If returned stored is null, means that original could be added
              * into result because `original` belong to `right` but not belong to `left`
              */
             final T found = findBy(left, original, fnGet);

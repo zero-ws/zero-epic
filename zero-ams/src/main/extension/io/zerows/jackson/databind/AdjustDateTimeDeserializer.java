@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter;
  *
  * After `java 8`, it provide `LocalDateTime, LocalDate, LocalTime` for datetime calculation, it means that you can
  * use previous three datetime classes instead of `Date` or `Calendar` here. These api are more useful when you are in
- * development of some real business project.
+ * development of some real income project.
  *
  * @author <a href="http://www.origin-x.cn">Lang</a>
  */

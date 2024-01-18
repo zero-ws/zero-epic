@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentMap;
 /*
  * Record interface for some data record using
  * 1. namespace: There are some format of `xxx.yyy.xxx`, and each `application` must contain only one namespace,
- * it must be business scope to split different application.
+ * it must be income scope to split different application.
  * 2. identifier: In the whole environment, there must be gold rule:
  *  2.1 ) namespace + identifier should be unique ( Business Scope )
  *  2.2 ) Above format should be global id of one defined model.

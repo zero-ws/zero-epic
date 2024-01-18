@@ -9,7 +9,7 @@ public final class EmTraffic {
 
     /*
      * Api -> Channel -> Service
-     * Here are many kind of channels and it's used in different business requirements
+     * Here are many kind of channels and it's used in different income requirements
      */
     public enum Channel {
         /*

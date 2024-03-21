@@ -153,12 +153,6 @@ public interface VMessage {
             "{1} components of @Inject or ( javax.inject.infix.* ).";
     }
 
-    // ---------- io.horizon.uca.log.Annal
-    interface Annal {
-        String INTERNAL = "[ZERO] The inject Annal has not been configured, will select environment for {}.";
-        String CONFIGURED = "[ZERO] The logger ( Annal = {} ) has been selected for {} to record logs.";
-    }
-
     // ---------- io.horizon.storage.specification.HFS
     interface HFS {
 

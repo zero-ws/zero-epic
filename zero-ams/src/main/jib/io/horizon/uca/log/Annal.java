@@ -31,7 +31,7 @@ public interface Annal extends HLogger {
         if (Objects.isNull(io)) {
             return get(clazz);
         }
-        return new BridgeAnnal(clazz, io);
+        return CACHE.CC_ANNAL_BRIDGE.pick(() -> new BridgeAnnal(clazz, io), clazz);
     }
 
     /**
@@ -43,18 +43,20 @@ public interface Annal extends HLogger {
      */
     static Annal get(final Class<?> clazz) {
         final HorizonIo io = HUt.service(HorizonIo.class);
-        return new BridgeAnnal(clazz, io);
+        return CACHE.CC_ANNAL_BRIDGE.pick(() -> new BridgeAnnal(clazz, io), clazz);
     }
 
 }
 
 interface CACHE {
+    @Memory(Annal.class)
+    Cc<Class<?>, Annal> CC_ANNAL_BRIDGE = Cc.open();
     /**
      * 按类分配的日志缓存池
      * 内部使用的按 hasCode 分配的日志缓存池
      * 旧代码：
      * <pre><code>
-     * @Memory(Annal.class)
+     *
      * Cc<Class < ?>, Annal> CC_ANNAL_EXTENSION = Cc.open();
      * </code></pre>
      */

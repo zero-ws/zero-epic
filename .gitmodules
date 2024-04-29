@@ -1,6 +1,6 @@
-[submodule "Zero.Core.AMS.Specification"]
-	path = Zero.Core.AMS.Specification
+[submodule "source/Zero.Core.AMS.Specification"]
+	path = source/Zero.Core.AMS.Specification
 	url = git@gitee.com:zero-ws/Zero.Core.AMS.Specification.git
-[submodule "refs/Zero.Core.AMS.Specification"]
-	path = refs/Zero.Core.AMS.Specification
-	url = git@gitee.com:zero-ws/Zero.Core.AMS.Specification.git
+[submodule "build/Zero.Core.AMS.Specification"]
+	path = build/Zero.Core.AMS.Specification
+	url = git@gitee.com:zero-ws/Zero.Build.Core.AMS.Specification.git
